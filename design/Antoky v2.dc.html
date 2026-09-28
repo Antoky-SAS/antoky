@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0B0B0B;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#FFD600;text-decoration:none}
+a:hover{color:#FFE34D}
+input,textarea,select,button{font:inherit}
+html{scroll-behavior:smooth}
+@keyframes antokyMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes antokyHue{to{filter:hue-rotate(360deg)}}
+@keyframes akA{0%{opacity:0;transform:translate(40px,-60px)}100%{opacity:1;transform:none}}
+@keyframes akY{0%{opacity:0;transform:translate(-70px,50px)}100%{opacity:1;transform:none}}
+@keyframes akWord{0%{clip-path:inset(0 100% 0 0)}100%{clip-path:inset(0 0 0 0)}}
+@keyframes akBar{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+</style>
+</helmet>
+<div style="font-family:'Inter',sans-serif;color:#F5F5F5;background:#0B0B0B;min-height:100vh">
+
+{{ loader }}
+{{ aura }}
+<header style="position:sticky;top:0;z-index:20;background:rgba(11,11,11,0.82);backdrop-filter:blur(12px)">
+  <div style="max-width:1140px;margin:0 auto;padding:16px clamp(20px,4vw,32px);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+    <a href="#inicio" style="display:flex;align-items:center"><img src="assets/antoky-logo-blanco.png" alt="Antoky" style="height:24px;display:block"></img></a>
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+    <nav style="position:relative;display:flex;align-items:center;gap:32px;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:500;flex-wrap:wrap">
+      <sc-for list="{{ navLinks }}" as="l" hint-placeholder-count="4">
+        <a href="{{ l.href }}" data-nav-id="{{ l.id }}" style="{{ l.style }}" style-hover="color:#FFD600">{{ l.label }}</a>
+      </sc-for>
+      {{ navBar }}
+      <a href="#contacto" style="background:#FFD600;color:#0B0B0B;padding:12px 22px;border-radius:999px;font-weight:600;transition:background .25s ease,color .25s ease,transform .25s ease,box-shadow .25s ease,border-color .25s ease" style-hover="background:#F5F5F5;color:#0B0B0B;transform:translateY(-3px);box-shadow:0 12px 28px -6px rgba(255,214,0,0.55)">Hablemos →</a>
+    </nav>
+    </sc-if>
+    <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ toggleMenu }}" aria-label="Menú" style="width:44px;height:44px;border-radius:12px;border:1px solid #2A2E33;background:#16181B;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;padding:0">
+        <span style="{{ burger1 }}"></span>
+        <span style="{{ burger2 }}"></span>
+        <span style="{{ burger3 }}"></span>
+      </button>
+    </sc-if>
+  </div>
+
+</header>
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<div style="{{ menuStyle }}">
+  <div style="position:absolute;top:-10%;right:-30%;width:70%;height:60%;background:#FFD600;clip-path:polygon(60% 0,100% 0,40% 100%,0 100%);opacity:0.9;pointer-events:none"></div>
+  <div style="position:relative;flex:1;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:100px 28px 24px">
+    <div style="font-family:'Montserrat',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:#9AA0A6;margin-bottom:18px">Menú</div>
+    <sc-for list="{{ navLinks }}" as="l" hint-placeholder-count="3">
+      <a href="{{ l.href }}" onClick="{{ closeMenu }}" style="{{ l.mStyle }}"><span style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:500;color:#686F76;width:28px">{{ l.num }}</span>{{ l.label }}</a>
+    </sc-for>
+  </div>
+  <div style="{{ menuFoot }}">
+    <a href="#contacto" onClick="{{ closeMenu }}" style="background:#FFD600;color:#0B0B0B;padding:18px 22px;border-radius:999px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:16px;text-align:center">Hablemos →</a>
+    <div style="display:flex;justify-content:space-between;gap:12px;font-size:14px;color:#9AA0A6;flex-wrap:wrap"><a href="mailto:Ceau922@gmail.com" style="color:#F5F5F5">Ceau922@gmail.com</a><span>Colombia</span></div>
+  </div>
+</div>
+</sc-if>
+
+<section id="inicio" data-screen-label="Hero" style="position:relative;overflow:hidden;background:#0B0B0B">
+  <div style="position:absolute;top:0;right:0;bottom:0;width:58%;background-image:radial-gradient(circle,#2A2E33 3.2px,transparent 3.6px);background-size:18px 18px;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 45%);mask-image:linear-gradient(90deg,transparent 0%,#000 45%);opacity:0.9"></div>
+  <div style="max-width:1140px;margin:0 auto;padding:clamp(64px,10vw,120px) clamp(20px,4vw,32px) clamp(72px,10vw,130px);position:relative">
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+    <div style="display:inline-flex;align-items:center;gap:10px;border:1px solid #2A2E33;background:#16181B;border-radius:999px;padding:7px 14px;font-size:14px;color:#FFD600;margin-bottom:26px;flex-wrap:wrap">
+      <span>SaaS</span><span style="color:#3A3F45">|</span><span>Desarrollo a la medida</span><span style="color:#3A3F45">|</span><span>Empresas · Microempresas · Colegios</span>
+    </div>
+    </sc-if>
+    <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px">
+      <span style="font-size:13px;color:#FFD600;border:1px solid #2A2E33;background:#16181B;border-radius:999px;padding:7px 13px">SaaS</span>
+      <span style="font-size:13px;color:#FFD600;border:1px solid #2A2E33;background:#16181B;border-radius:999px;padding:7px 13px">Desarrollo a la medida</span>
+      <span style="font-size:13px;color:#FFD600;border:1px solid #2A2E33;background:#16181B;border-radius:999px;padding:7px 13px">Empresas</span>
+      <span style="font-size:13px;color:#FFD600;border:1px solid #2A2E33;background:#16181B;border-radius:999px;padding:7px 13px">Microempresas</span>
+      <span style="font-size:13px;color:#FFD600;border:1px solid #2A2E33;background:#16181B;border-radius:999px;padding:7px 13px">Colegios</span>
+    </div>
+    </sc-if>
+    <h1 style="font-family:'Montserrat',sans-serif;font-size:clamp(40px,5.4vw,68px);line-height:1.08;letter-spacing:-0.035em;font-weight:700;margin:0 0 18px;max-width:720px">Soluciones tecnológicas<br><span style="color:#FFD600">para un futuro más humano</span><br>desde Colombia</h1>
+    <p style="font-family:'Montserrat',sans-serif;font-size:clamp(18px,1.8vw,24px);line-height:1.4;letter-spacing:-0.01em;font-weight:500;color:#D9DDE1;margin:0 0 34px;max-width:620px;text-wrap:pretty">Tecnología con compromiso y visión de futuro</p>
+    <div style="display:flex;gap:18px;flex-wrap:wrap">
+      <a href="#contacto" style="background:#FFD600;color:#0B0B0B;padding:12px 18px;border-radius:6px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:16px;transition:background .25s ease,color .25s ease,transform .25s ease,box-shadow .25s ease,border-color .25s ease" style-hover="background:#F5F5F5;color:#0B0B0B;transform:translateY(-3px);box-shadow:0 12px 28px -6px rgba(255,214,0,0.55)">Hablemos</a>
+      <a href="#proyectos" style="background:#F5F5F5;color:#0B0B0B;padding:12px 18px;border-radius:6px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:16px;transition:background .25s ease,color .25s ease,transform .25s ease,box-shadow .25s ease,border-color .25s ease" style-hover="background:#FFD600;color:#0B0B0B;transform:translateY(-3px);box-shadow:0 12px 28px -6px rgba(255,214,0,0.55)">Ver soluciones</a>
+    </div>
+  </div>
+</section>
+
+<sc-if value="{{ showMarquee }}" hint-placeholder-val="{{ true }}">
+<div style="background:#0B0B0B;color:#F5F5F5;overflow:hidden;border-bottom:1px solid #1C1F23">{{ marquee }}</div>
+</sc-if>
+
+<section id="proyectos" data-screen-label="Productos" style="background:#F5F5F5;color:#0B0B0B">
+  <div style="max-width:1140px;margin:0 auto;padding:clamp(64px,8vw,96px) clamp(20px,4vw,32px) clamp(72px,9vw,112px);display:flex;flex-direction:column;gap:20px">
+    <div style="font-family:'Montserrat',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:#686F76;margin-bottom:12px">01 — Productos</div>
+    <article style="position:relative;overflow:hidden;background:#0B0B0B;color:#F5F5F5;border-radius:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));min-height:420px">
+      <div style="padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;justify-content:center;gap:18px;position:relative;z-index:2">
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <span style="font-size:13px;color:#FFD600;border:1px solid #2A2E33;background:#16181B;border-radius:999px;padding:6px 12px">Notas y boletines</span>
+          <span style="font-size:13px;color:#FFD600;border:1px solid #2A2E33;background:#16181B;border-radius:999px;padding:6px 12px">Matrículas</span>
+          <span style="font-size:13px;color:#FFD600;border:1px solid #2A2E33;background:#16181B;border-radius:999px;padding:6px 12px">Asistencia</span>
+          <span style="font-size:13px;color:#FFD600;border:1px solid #2A2E33;background:#16181B;border-radius:999px;padding:6px 12px">Comunicación con padres</span>
+        </div>
+        <h2 style="font-family:'Montserrat',sans-serif;font-size:clamp(26px,2.6vw,34px);line-height:1.1;letter-spacing:-0.02em;font-weight:700;margin:0">Software educativo</h2>
+        <p style="font-size:16px;line-height:1.6;color:#D9DDE1;margin:0;max-width:460px;text-wrap:pretty">Una plataforma en la nube para gestionar la vida académica de su colegio: directivos, docentes y familias conectados en un solo lugar.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:20px;font-size:14px;color:#F5F5F5">
+          <span style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;background:#FFD600;clip-path:polygon(40% 0,100% 0,60% 100%,0 100%);display:block"></span>SaaS</span>
+          <span style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;background:#FFD600;clip-path:polygon(40% 0,100% 0,60% 100%,0 100%);display:block"></span>Web y móvil</span>
+          <span style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;background:#FFD600;clip-path:polygon(40% 0,100% 0,60% 100%,0 100%);display:block"></span>Soporte incluido</span>
+        </div>
+        <a href="#contacto" style="align-self:flex-start;margin-top:10px;background:#FFD600;color:#0B0B0B;padding:12px 18px;border-radius:6px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:15px;transition:background .25s ease,color .25s ease,transform .25s ease,box-shadow .25s ease,border-color .25s ease" style-hover="background:#F5F5F5;color:#0B0B0B;transform:translateY(-3px);box-shadow:0 12px 28px -6px rgba(255,214,0,0.55)">Obtener software educativo</a>
+      </div>
+      <div style="position:relative;overflow:hidden;min-height:340px;display:flex;flex-direction:column;justify-content:center;gap:14px;padding:28px 0">
+        {{ galeriaA }}
+        {{ galeriaB }}
+        <div style="position:absolute;top:0;bottom:0;left:0;width:30%;background:linear-gradient(90deg,#0B0B0B,rgba(11,11,11,0));pointer-events:none"></div>
+      </div>
+    </article>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px">
+      <article style="position:relative;overflow:hidden;border-radius:20px;min-height:420px;background:#16181B;display:flex;flex-direction:column;justify-content:flex-end">
+        <img src="assets/stock/photo-1522071820081-009f0129c71c.jpg" alt="Equipo desarrollando software" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></img>
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,11,0) 30%,rgba(11,11,11,0.92) 100%)"></div>
+        <div style="position:relative;padding:28px;display:flex;flex-direction:column;gap:12px;color:#F5F5F5">
+          <h3 style="font-family:'Montserrat',sans-serif;font-size:26px;font-weight:700;letter-spacing:-0.02em;margin:0">Software a la medida</h3>
+          <p style="font-size:16px;line-height:1.5;color:#D9DDE1;margin:0;text-wrap:pretty">Aplicaciones web e integraciones diseñadas para sus procesos.</p>
+          <a href="#contacto" style="align-self:flex-start;margin-top:4px;background:#F5F5F5;color:#0B0B0B;padding:10px 16px;border-radius:6px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:15px;transition:background .25s ease,color .25s ease,transform .25s ease,box-shadow .25s ease,border-color .25s ease" style-hover="background:#FFD600;color:#0B0B0B;transform:translateY(-3px);box-shadow:0 12px 28px -6px rgba(255,214,0,0.55)">Obtener software a la medida</a>
+        </div>
+      </article>
+      <article style="position:relative;overflow:hidden;border-radius:20px;min-height:420px;background:#16181B;display:flex;flex-direction:column;justify-content:flex-end">
+        <img src="assets/stock/photo-1512941937669-90a1b58e7e9c.jpg" alt="Aplicación móvil" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></img>
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,11,0) 30%,rgba(11,11,11,0.92) 100%)"></div>
+        <div style="position:relative;padding:28px;display:flex;flex-direction:column;gap:12px;color:#F5F5F5">
+          <h3 style="font-family:'Montserrat',sans-serif;font-size:26px;font-weight:700;letter-spacing:-0.02em;margin:0">Aplicación móvil</h3>
+          <p style="font-size:16px;line-height:1.5;color:#D9DDE1;margin:0;text-wrap:pretty">Apps para iOS y Android que acercan su servicio a sus clientes.</p>
+          <a href="#contacto" style="align-self:flex-start;margin-top:4px;background:#F5F5F5;color:#0B0B0B;padding:10px 16px;border-radius:6px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:15px;transition:background .25s ease,color .25s ease,transform .25s ease,box-shadow .25s ease,border-color .25s ease" style-hover="background:#FFD600;color:#0B0B0B;transform:translateY(-3px);box-shadow:0 12px 28px -6px rgba(255,214,0,0.55)">Obtener aplicación móvil</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section id="proceso" data-screen-label="Cómo trabajamos" style="background:#0B0B0B">
+  <div style="max-width:1140px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px)">
+    <div style="font-family:'Montserrat',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:#9AA0A6;margin-bottom:24px">02 — Cómo trabajamos</div>
+    <h2 style="font-family:'Montserrat',sans-serif;font-size:clamp(38px,5vw,68px);line-height:1.02;letter-spacing:-0.035em;font-weight:700;margin:0 0 72px;max-width:860px;text-wrap:balance">De la primera reunión a la entrega, <span style="color:#FFD600">sin sorpresas.</span></h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(max(calc(25% - 12px),min(calc(50% - 8px),calc((928px - 100%) * 999)),min(100%,calc((456px - 100%) * 999))),1fr));gap:16px">
+      <div style="background:#16181B;border:1px solid #23262A;border-radius:24px;padding:36px;display:flex;flex-direction:column;gap:18px;min-height:320px">
+        <span style="font-family:'Montserrat',sans-serif;font-size:64px;font-weight:700;letter-spacing:-0.04em;color:#FFD600;line-height:1">01</span>
+        <h3 style="font-family:'Montserrat',sans-serif;font-size:22px;font-weight:600;margin:auto 0 0">Diagnóstico</h3>
+        <p style="font-size:15px;line-height:1.6;color:#9AA0A6;margin:0;text-wrap:pretty">Entendemos su organización, sus procesos y lo que necesita resolver.</p>
+      </div>
+      <div style="background:#16181B;border:1px solid #23262A;border-radius:24px;padding:36px;display:flex;flex-direction:column;gap:18px;min-height:320px">
+        <span style="font-family:'Montserrat',sans-serif;font-size:64px;font-weight:700;letter-spacing:-0.04em;color:#FFD600;line-height:1">02</span>
+        <h3 style="font-family:'Montserrat',sans-serif;font-size:22px;font-weight:600;margin:auto 0 0">Estrategia</h3>
+        <p style="font-size:15px;line-height:1.6;color:#9AA0A6;margin:0;text-wrap:pretty">Definimos alcance, tiempos y costos por escrito.</p>
+      </div>
+      <div style="background:#16181B;border:1px solid #23262A;border-radius:24px;padding:36px;display:flex;flex-direction:column;gap:18px;min-height:320px">
+        <span style="font-family:'Montserrat',sans-serif;font-size:64px;font-weight:700;letter-spacing:-0.04em;color:#FFD600;line-height:1">03</span>
+        <h3 style="font-family:'Montserrat',sans-serif;font-size:22px;font-weight:600;margin:auto 0 0">Desarrollo</h3>
+        <p style="font-size:15px;line-height:1.6;color:#9AA0A6;margin:0;text-wrap:pretty">Construimos por etapas y le mostramos avances reales en cada una.</p>
+      </div>
+      <div style="background:#FFD600;color:#0B0B0B;border-radius:24px;padding:36px;display:flex;flex-direction:column;gap:18px;min-height:320px">
+        <span style="font-family:'Montserrat',sans-serif;font-size:64px;font-weight:700;letter-spacing:-0.04em;line-height:1">04</span>
+        <h3 style="font-family:'Montserrat',sans-serif;font-size:22px;font-weight:600;margin:auto 0 0">Resultados y soporte</h3>
+        <p style="font-size:15px;line-height:1.6;color:#2A2E33;margin:0;text-wrap:pretty">Capacitamos a su equipo y seguimos acompañándolo después del lanzamiento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section id="nosotros" data-screen-label="Nosotros" style="background:#0B0B0B;position:relative;overflow:hidden">
+  <div style="max-width:1140px;margin:0 auto;padding:clamp(72px,10vw,128px) clamp(20px,4vw,32px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:72px;align-items:start">
+    <div>
+      <div style="font-family:'Montserrat',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:#9AA0A6;margin-bottom:24px">03 — Nosotros</div>
+      <h2 style="font-family:'Montserrat',sans-serif;font-size:clamp(38px,5vw,68px);line-height:1.02;letter-spacing:-0.035em;font-weight:700;margin:0 0 32px;text-wrap:balance">Personas en el centro.</h2>
+      <p style="font-size:18px;line-height:1.7;color:#D9DDE1;margin:0 0 40px;max-width:500px;text-wrap:pretty">Antoky nace de dos fundadores colombianos convencidos de que la buena tecnología no debe ser exclusiva de las grandes empresas. Trabajamos directamente con cada cliente, sin intermediarios.</p>
+      <div style="display:flex;flex-direction:column;gap:6px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:#F5F5F5">
+        <span>Innovación</span><span>Estrategia</span><span>Personas</span><span style="color:#FFD600">Resultados</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:20px">
+      <sc-for list="{{ founders }}" as="fo" hint-placeholder-count="2">
+        <div onMouseEnter="{{ fo.enter }}" onMouseLeave="{{ fo.leave }}" style="display:flex;flex-direction:column;gap:18px;cursor:default">
+          <div style="position:relative;overflow:hidden;aspect-ratio:4/5;border-radius:24px;background:#16181B;border:1px solid #23262A">
+            <div style="{{ fo.backStyle }}"></div>
+            <img src="{{ fo.foto }}" alt="{{ fo.nombre }}" style="{{ fo.imgStyle }}"></img>
+            <div style="position:absolute;bottom:-20%;right:-20%;width:40%;height:60%;background:#FFD600;transform:skewX(-32deg)"></div>
+            <div style="{{ fo.overlayStyle }}">
+              <span style="width:32px;height:3px;background:#FFD600;display:block"></span>
+              <p style="font-size:15px;line-height:1.6;color:#F5F5F5;margin:0;text-wrap:pretty">{{ fo.bio }}</p>
+            </div>
+          </div>
+          <div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:700">{{ fo.nombre }}</div>
+            <div style="font-size:14px;color:#9AA0A6;margin-top:6px">{{ fo.cargo }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" data-screen-label="Contacto" style="background:#0B0B0B;padding:0 clamp(12px,3vw,32px) clamp(12px,3vw,32px)">
+  <div style="max-width:1140px;margin:0 auto;background:#FFD600;color:#0B0B0B;border-radius:32px;padding:clamp(28px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:clamp(32px,4vw,56px);align-items:center;position:relative;overflow:hidden">
+    <div style="position:relative;min-width:0">
+      <div style="font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;margin-bottom:24px">04 — Contacto</div>
+      <h2 style="font-family:'Montserrat',sans-serif;font-size:clamp(34px,4vw,54px);line-height:1.05;letter-spacing:-0.03em;font-weight:700;margin:0 0 24px;text-wrap:balance;overflow-wrap:break-word">Construyamos el futuro juntos.</h2>
+      <p style="font-size:18px;line-height:1.6;color:#2A2E33;margin:0 0 40px;max-width:440px;text-wrap:pretty">Cuéntenos qué necesita. Respondemos en menos de un día hábil y la primera reunión es sin costo.</p>
+      <div style="display:flex;flex-direction:column;border-top:1px solid rgba(11,11,11,0.25);max-width:440px;font-size:15px">
+        <div style="display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid rgba(11,11,11,0.25)"><span>Correo</span><a href="mailto:Ceau922@gmail.com" style="color:#0B0B0B;font-weight:500">Ceau922@gmail.com</a></div>
+        <div style="display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid rgba(11,11,11,0.25)"><span>WhatsApp</span><a href="https://wa.me/573137264497" style="font-weight:500;color:inherit">+57 313 7264497</a></div>
+        <div style="display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid rgba(11,11,11,0.25)"><span>Ubicación</span><span style="font-weight:500">Colombia</span></div>
+      </div>
+    </div>
+    <div style="background:#0B0B0B;color:#F5F5F5;border-radius:24px;padding:clamp(24px,3vw,36px);position:relative;min-width:0">
+      <sc-if value="{{ enviado }}" hint-placeholder-val="{{ false }}">
+        <div style="min-height:440px;display:flex;flex-direction:column;justify-content:center;gap:16px">
+          <span style="width:48px;height:48px;border-radius:50%;background:#FFD600;color:#0B0B0B;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700">✓</span>
+          <h3 style="font-family:'Montserrat',sans-serif;font-size:30px;font-weight:700;letter-spacing:-0.02em;margin:0">Mensaje recibido.</h3>
+          <p style="font-size:16px;line-height:1.6;color:#D9DDE1;margin:0">Gracias, {{ nombreEnviado }}. Le escribiremos muy pronto.</p>
+          <button onClick="{{ reiniciar }}" style="align-self:flex-start;margin-top:8px;background:transparent;border:1px solid #3A3F45;color:#F5F5F5;padding:12px 20px;border-radius:999px;cursor:pointer;font-size:14px">Enviar otro mensaje</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noEnviado }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ enviar }}" style="display:flex;flex-direction:column;gap:16px">
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:#D9DDE1">Nombre
+            <input name="nombre" required="" placeholder="Su nombre" style="background:#16181B;border:1px solid #2A2E33;border-radius:14px;padding:15px 18px;color:#F5F5F5;font-size:15px;outline:none" style-focus="border-color:#FFD600"></input>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:#D9DDE1">Correo electrónico
+            <input name="correo" type="email" required="" placeholder="nombre@empresa.com" style="background:#16181B;border:1px solid #2A2E33;border-radius:14px;padding:15px 18px;color:#F5F5F5;font-size:15px;outline:none" style-focus="border-color:#FFD600"></input>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:#D9DDE1">Teléfono de contacto
+            <input name="telefono" type="tel" required="" placeholder="+57 300 000 0000" style="background:#16181B;border:1px solid #2A2E33;border-radius:14px;padding:15px 18px;color:#F5F5F5;font-size:15px;outline:none" style-focus="border-color:#FFD600"></input>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:#D9DDE1">Tipo de organización
+            <select name="tipo" style="appearance:none;-webkit-appearance:none;background:#16181B url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%239AA0A6' stroke-width='1.6'/%3E%3C/svg%3E&quot;) no-repeat right 18px center;cursor:pointer;border:1px solid #2A2E33;border-radius:14px;padding:15px 18px;color:#F5F5F5;font-size:15px;outline:none" style-focus="border-color:#FFD600">
+              <option>Empresa</option>
+              <option>Microempresa</option>
+              <option>Colegio</option>
+              <option>Otro</option>
+            </select>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:#D9DDE1">Mensaje
+            <textarea name="mensaje" rows="4" placeholder="Cuéntenos brevemente su proyecto" style="background:#16181B;border:1px solid #2A2E33;border-radius:14px;padding:15px 18px;color:#F5F5F5;font-size:15px;outline:none;resize:vertical" style-focus="border-color:#FFD600"></textarea>
+          </label>
+          <button type="submit" style="background:#FFD600;color:#0B0B0B;border:none;padding:18px 24px;border-radius:999px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:15px;cursor:pointer;margin-top:6px;transition:background .25s ease,color .25s ease,transform .25s ease,box-shadow .25s ease,border-color .25s ease" style-hover="background:#F5F5F5;color:#0B0B0B;transform:translateY(-3px);box-shadow:0 12px 28px -6px rgba(255,214,0,0.55)">Enviar mensaje →</button>
+        </form>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
+<footer style="background:#0B0B0B">
+  <div style="max-width:1140px;margin:0 auto;padding:clamp(48px,7vw,72px) clamp(20px,4vw,32px) 32px">
+    <div onMouseEnter="{{ logoEnter }}" onMouseLeave="{{ logoLeave }}" onMouseMove="{{ logoMove }}" style="position:relative">
+      <img src="assets/antoky-logo-blanco.png" alt="Antoky" style="width:100%;display:block"></img>
+      <div ref="{{ logoGlow }}" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .4s ease;-webkit-mask-image:url(assets/antoky-logo-blanco.png);mask-image:url(assets/antoky-logo-blanco.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background:radial-gradient(circle 130px at var(--x,50%) var(--y,50%),#FF2BD6 0%,#7A5CFF 28%,#00E5FF 52%,#00FFA3 68%,rgba(0,255,163,0) 82%);animation:antokyHue 3s linear infinite"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:40px;padding-top:24px;border-top:1px solid #1C1F23;font-size:13px;color:#9AA0A6">
+      <span style="font-family:'Montserrat',sans-serif;letter-spacing:0.2em;text-transform:uppercase;font-size:12px">Tecnología con compromiso y visión de futuro</span>
+      <span>© 2026 Antoky · Colombia</span>
+    </div>
+  </div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showSectores&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Contenido&quot;},&quot;showMarquee&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Contenido&quot;},&quot;showAura&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;},&quot;showLoader&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Efectos&quot;}}">
+class Component extends DCLogic {
+  state = { sector: 0, enviado: false, nombre: '', hoverF: -1, active: '', loading: true, loaderGone: false, vw: typeof window !== 'undefined' ? window.innerWidth : 1200, menu: false };
+  auraRef = React.createRef();
+  barRef = React.createRef();
+  glowA = React.createRef();
+  logoGlow = React.createRef();
+  setExotic(on) {
+    const a = this.glowA.current, g = this.logoGlow.current;
+    if (a) a.style.opacity = on ? 0.25 : 1;
+    if (g) g.style.opacity = on ? 1 : 0;
+  }
+  moveBar() {
+    const b = this.barRef.current; if (!b) return;
+    const el = this.state.active && b.parentElement && b.parentElement.querySelector('[data-nav-id="' + this.state.active + '"]');
+    if (!el) { b.style.opacity = 0; return; }
+    b.style.width = el.offsetWidth + 'px';
+    b.style.transform = 'translateX(' + el.offsetLeft + 'px)';
+    b.style.top = (el.offsetTop + el.offsetHeight - 2) + 'px';
+    b.style.bottom = 'auto';
+    b.style.opacity = 1;
+  }
+  componentDidUpdate() { this.moveBar(); document.body.style.overflow = (this.state.menu && this.state.vw < 860) ? 'hidden' : ''; }
+  ringRef = React.createRef();
+  componentDidMount() {
+    const minT = new Promise(res => setTimeout(res, 2300));
+    const loaded = document.readyState === 'complete' ? Promise.resolve() : new Promise(res => window.addEventListener('load', res, { once: true }));
+    Promise.all([minT, loaded]).then(() => { this.setState({ loading: false }); setTimeout(() => this.setState({ loaderGone: true }), 900); });
+    let tx = -500, ty = -500, x = tx, y = ty;
+    this._move = (e) => { tx = e.clientX; ty = e.clientY; if (this.auraRef.current) this.auraRef.current.style.opacity = 1; };
+    this._leave = () => { if (this.auraRef.current) this.auraRef.current.style.opacity = 0; };
+    this._down = (e) => {
+      const r = this.ringRef.current; if (!r) return;
+      r.animate([{ transform: 'translate(-50%,-50%) scale(0.2)', opacity: 0.9 }, { transform: 'translate(-50%,-50%) scale(1.6)', opacity: 0 }], { duration: 650, easing: 'cubic-bezier(.2,.7,.2,1)' });
+    };
+    const tick = () => {
+      x += (tx - x) * 0.14; y += (ty - y) * 0.14;
+      const a = this.auraRef.current;
+      if (a) a.style.transform = `translate(${x}px,${y}px)`;
+      this._raf = requestAnimationFrame(tick);
+    };
+    this._raf = requestAnimationFrame(tick);
+    this._spy = () => {
+      const ids = ['proyectos', 'proceso', 'nosotros', 'contacto'];
+      const line = window.innerHeight * 0.35;
+      let cur = '';
+      ids.forEach(id => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top <= line) cur = id; });
+      if (cur !== this.state.active) this.setState({ active: cur });
+    };
+    window.addEventListener('scroll', this._spy, { passive: true });
+    this._rs = () => { this.moveBar(); if (window.innerWidth !== this.state.vw) this.setState({ vw: window.innerWidth, menu: window.innerWidth < 860 ? this.state.menu : false }); };
+    window.addEventListener('resize', this._rs);
+    this._spy();
+    window.addEventListener('pointermove', this._move);
+    window.addEventListener('pointerdown', this._down);
+    document.addEventListener('pointerleave', this._leave);
+  }
+  componentWillUnmount() {
+    cancelAnimationFrame(this._raf);
+    window.removeEventListener('scroll', this._spy);
+    window.removeEventListener('resize', this._rs);
+    window.removeEventListener('pointermove', this._move);
+    window.removeEventListener('pointerdown', this._down);
+    document.removeEventListener('pointerleave', this._leave);
+  }
+  renderVals() {
+    const data = [
+      { nombre: 'Empresas', titulo: 'Procesos más ágiles para empresas en crecimiento', texto: 'Automatizamos tareas repetitivas, conectamos sus sistemas y centralizamos la información para decidir mejor.', tags: ['ERP y CRM', 'Integraciones', 'Tableros de datos'] },
+      { nombre: 'Microempresas', titulo: 'Herramientas simples a un precio justo', texto: 'Soluciones fáciles de usar para vender, facturar y organizar su negocio, sin necesidad de un área de sistemas.', tags: ['Inventario', 'Ventas', 'Facturación'] },
+      { nombre: 'Colegios', titulo: 'Gestión académica sin complicaciones', texto: 'Plataformas para notas, matrículas y comunicación con padres, pensadas para directivos, docentes y familias.', tags: ['Notas y boletines', 'Matrículas', 'Comunicación con padres'] }
+    ];
+    const btn = { fontFamily: 'Montserrat,sans-serif', fontSize: 15, fontWeight: 600, padding: '12px 22px', borderRadius: 999, cursor: 'pointer' };
+    const sectores = data.map((d, i) => ({
+      nombre: d.nombre,
+      select: () => this.setState({ sector: i }),
+      style: i === this.state.sector
+        ? { ...btn, background: '#FFD600', color: '#0B0B0B', border: '1px solid #FFD600' }
+        : { ...btn, background: '#F5F5F5', color: '#0B0B0B', border: '1px solid #D9DDE1' }
+    }));
+    const words = ['Innovación', 'Estrategia', 'Personas', 'Resultados', 'SaaS', 'Desarrollo a la medida'];
+    const row = [...words, ...words, ...words, ...words];
+    const h = React.createElement;
+    const marquee = h('div', { style: { display: 'flex', width: 'max-content', animation: 'antokyMarquee 40s linear infinite', padding: '22px 0' } },
+      row.map((w, i) => h('span', { key: i, style: { display: 'flex', alignItems: 'center', gap: 40, paddingRight: 40, fontFamily: 'Montserrat,sans-serif', fontWeight: 700, fontSize: 22, letterSpacing: '0.02em', textTransform: 'uppercase', whiteSpace: 'nowrap' } },
+        w, h('span', { style: { width: 22, height: 12, background: '#FFD600', transform: 'skewX(-32deg)', display: 'block' } }))));
+    const fdata = [
+      { nombre: 'Carlos Arias', cargo: 'CoFounder - CEO', foto: 'assets/carlos-arias-v2.png', bio: 'Lidera la estrategia comercial y la relación con clientes. Se asegura de que cada solución responda a una necesidad real del negocio.' },
+      { nombre: 'Sebastián Valle', cargo: 'CoFounder - CTO', foto: 'assets/sebastian-valle-v2.png', bio: 'Dirige la arquitectura y el desarrollo de producto. Convierte procesos complejos en software claro, seguro y escalable.' }
+    ];
+    const founders = fdata.map((d, i) => {
+      const on = this.state.hoverF === i;
+      return { ...d,
+        enter: () => this.setState({ hoverF: i }),
+        leave: () => this.setState({ hoverF: -1 }),
+        backStyle: { position: 'absolute', inset: '-10%', backgroundImage: 'url(' + d.foto + ')', backgroundSize: 'cover', backgroundPosition: 'center top', filter: 'blur(28px)' },
+        imgStyle: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', transformOrigin: 'center bottom', transform: 'scale(' + ((d.escala || 1) * (on ? 1.04 : 1)) + ')', transition: 'transform .5s ease' },
+        overlayStyle: { position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(11,11,11,0.35) 0%, rgba(11,11,11,0.92) 60%)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', gap: 14, padding: 24, opacity: on ? 1 : 0, transition: 'opacity .35s ease' }
+      };
+    });
+    const coarse = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+    const showAura = (this.props.showAura ?? true) && !coarse;
+    const aura = showAura ? h('div', { ref: this.auraRef, 'aria-hidden': true, style: { position: 'fixed', left: 0, top: 0, width: 0, height: 0, zIndex: 50, pointerEvents: 'none', opacity: 0, transition: 'opacity .3s ease', willChange: 'transform' } },
+      h('div', { ref: this.glowA, style: { position: 'absolute', width: 420, height: 420, left: -210, top: -210, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,214,0,0.16) 0%, rgba(255,214,0,0.06) 35%, rgba(255,214,0,0) 70%)', mixBlendMode: 'screen', transition: 'opacity .5s ease' } }),
+      h('div', { ref: this.ringRef, style: { position: 'absolute', left: 0, top: 0, width: 90, height: 90, borderRadius: '50%', border: '2px solid #FFD600', transform: 'translate(-50%,-50%) scale(0)', opacity: 0 } })
+    ) : null;
+    const navLinks = [['proyectos', 'Productos'], ['proceso', 'Cómo trabajamos'], ['nosotros', 'Nosotros']].map(([id, label], idx) => {
+      const on = this.state.active === id;
+      return { id, href: '#' + id, label, num: '0' + (idx + 1), mStyle: { display: 'flex', alignItems: 'baseline', color: on ? '#FFD600' : '#F5F5F5', fontFamily: 'Montserrat,sans-serif', fontSize: 'clamp(34px,10vw,48px)', fontWeight: 700, letterSpacing: '-0.03em', padding: '12px 0', borderBottom: '1px solid #1C1F23', opacity: this.state.menu ? 1 : 0, transform: this.state.menu ? 'translateY(0)' : 'translateY(30px)', transition: 'opacity .5s ease, transform .6s cubic-bezier(.2,.8,.2,1), color .2s ease', transitionDelay: this.state.menu ? (0.15 + idx * 0.07) + 's' : '0s' }, style: { color: on ? '#FFD600' : '#D9DDE1', paddingBottom: 8, transition: 'color .3s ease' } };
+    });
+    const navBar = h('span', { ref: this.barRef, 'aria-hidden': true, style: { position: 'absolute', left: 0, bottom: 0, height: 2, width: 0, background: '#FFD600', borderRadius: 2, opacity: 0, pointerEvents: 'none', transition: 'transform .45s cubic-bezier(.65,0,.35,1), width .45s cubic-bezier(.65,0,.35,1), opacity .3s ease' } });
+    const fotos = ['photo-1509062522246-3755977927d7', 'photo-1503676260728-1c00da094a0b', 'photo-1524178232363-1fb2b075b655', 'photo-1427504494785-3a9ca7044f45', 'photo-1580582932707-520aed937b7b', 'photo-1498050108023-c5249f4df085'];
+    const galeria = (list, dir) => h('div', { style: { display: 'flex', gap: 14, width: 'max-content', animation: 'antokyMarquee ' + (dir > 0 ? '38s' : '46s') + ' linear infinite' + (dir < 0 ? ' reverse' : '') } },
+      [...list, ...list].map((id, i) => h('img', { key: i, src: 'assets/stock/' + id + '.jpg', alt: '', style: { width: 220, height: 150, objectFit: 'cover', borderRadius: 12, display: 'block', flexShrink: 0 } })));
+    const mobile = this.state.vw < 860, open = mobile && this.state.menu;
+    const bar = { width: 18, height: 2, background: '#F5F5F5', borderRadius: 2, display: 'block', transition: 'transform .3s ease, opacity .2s ease' };
+    const ease = 'cubic-bezier(.2,.8,.2,1)';
+    const iso = { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain' };
+    const loader = ((this.props.showLoader ?? true) && !this.state.loaderGone) ? h('div', { 'aria-hidden': true, style: { position: 'fixed', inset: 0, zIndex: 100, background: '#0B0B0B', display: 'flex', alignItems: 'center', justifyContent: 'center', clipPath: this.state.loading ? 'inset(0 0 0 0)' : 'inset(0 0 100% 0)', transition: 'clip-path .9s cubic-bezier(.7,0,.2,1)' } },
+      h('div', { style: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 28, opacity: this.state.loading ? 1 : 0, transform: this.state.loading ? 'none' : 'translateY(-30px)', transition: 'opacity .5s ease, transform .6s ease' } },
+        h('div', { style: { position: 'relative', width: 'min(34vw,150px)', aspectRatio: '837/526' } },
+          h('img', { src: 'assets/antoky-isotipo-blanco.png', alt: '', style: { ...iso, clipPath: 'polygon(0 0,100% 0,100% 100%,56% 100%,56% 36%,0 36%)', animation: 'akA .7s ' + ease + ' .15s both' } }),
+          h('img', { src: 'assets/antoky-isotipo-blanco.png', alt: '', style: { ...iso, clipPath: 'polygon(0 36%,56% 36%,56% 100%,0 100%)', animation: 'akY .7s ' + ease + ' .55s both' } })
+        ),
+        h('img', { src: 'assets/antoky-logo-blanco.png', alt: 'Antoky', style: { width: 'min(62vw,280px)', display: 'block', animation: 'akWord .9s cubic-bezier(.7,0,.2,1) 1.05s both' } }),
+        h('div', { style: { width: 'min(62vw,280px)', height: 2, background: '#1C1F23', overflow: 'hidden' } },
+          h('div', { style: { height: '100%', background: '#FFD600', transformOrigin: 'left', animation: 'akBar 2.1s cubic-bezier(.6,0,.3,1) both' } }))
+      )) : null;
+    return {
+      loader,
+      isDesktop: !mobile, isMobile: mobile,
+      menuStyle: { position: 'fixed', inset: 0, zIndex: 15, background: '#0B0B0B', display: 'flex', flexDirection: 'column', overflow: 'hidden', clipPath: open ? 'circle(150% at calc(100% - 42px) 38px)' : 'circle(0px at calc(100% - 42px) 38px)', transition: 'clip-path .7s cubic-bezier(.7,0,.2,1)', pointerEvents: open ? 'auto' : 'none' },
+      menuFoot: { position: 'relative', padding: '0 28px 36px', display: 'flex', flexDirection: 'column', gap: 18, opacity: open ? 1 : 0, transform: open ? 'none' : 'translateY(20px)', transition: 'opacity .5s ease, transform .6s ease', transitionDelay: open ? '.45s' : '0s' },
+      toggleMenu: () => this.setState(s => ({ menu: !s.menu })),
+      closeMenu: () => this.setState({ menu: false }),
+      burger1: { ...bar, transform: open ? 'translateY(7px) rotate(45deg)' : 'none' },
+      burger2: { ...bar, opacity: open ? 0 : 1 },
+      burger3: { ...bar, transform: open ? 'translateY(-7px) rotate(-45deg)' : 'none' },
+      logoEnter: () => this.setExotic(true),
+      logoLeave: () => this.setExotic(false),
+      logoGlow: this.logoGlow,
+      logoMove: (e) => { const g = this.logoGlow.current; if (!g) return; const b = g.getBoundingClientRect(); g.style.setProperty('--x', (e.clientX - b.left) + 'px'); g.style.setProperty('--y', (e.clientY - b.top) + 'px'); },
+      galeriaA: galeria(fotos.slice(0, 3).concat(fotos.slice(3, 4)), 1),
+      galeriaB: galeria(fotos.slice(3).concat(fotos.slice(0, 1)), -1),
+      navBar,
+      navLinks,
+      aura,
+      founders,
+      showSectores: this.props.showSectores ?? true,
+      showMarquee: this.props.showMarquee ?? true,
+      marquee,
+      sectores,
+      sector: data[this.state.sector],
+      proyectos: [
+        { nombre: 'Nombre del proyecto', tipo: 'SaaS · Colegio', desc: 'Breve descripción del reto y el resultado para el cliente.' },
+        { nombre: 'Nombre del proyecto', tipo: 'A la medida', desc: 'Breve descripción del reto y el resultado para el cliente.' },
+        { nombre: 'Nombre del proyecto', tipo: 'Microempresa', desc: 'Breve descripción del reto y el resultado para el cliente.' }
+      ],
+      enviado: this.state.enviado,
+      noEnviado: !this.state.enviado,
+      nombreEnviado: this.state.nombre,
+      enviar: (e) => { e.preventDefault(); const n = new FormData(e.target).get('nombre') || ''; this.setState({ enviado: true, nombre: String(n).split(' ')[0] }); },
+      reiniciar: () => this.setState({ enviado: false, nombre: '' })
+    };
+  }
+}
+</script>
+</body>
+</html>
