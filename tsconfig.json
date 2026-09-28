@@ -37,6 +37,11 @@
   ],
   "exclude": [
     "node_modules",
-    "design"
+    "design",
+    "design-system",
+    "dist-ds",
+    ".ds-sync",
+    "ds-bundle",
+    ".design-sync"
   ]
 }

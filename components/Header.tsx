@@ -1,16 +1,28 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { assets } from "./assets";
+import { Button } from "./Button";
 
-const LINKS = [
+export interface HeaderProps {
+  /** Enlaces de navegación; el activo se resalta en amarillo con una barra deslizante según el scroll. */
+  links?: { /** id de la sección destino (sin #). */ id: string; label: string }[];
+  /** id de la sección del CTA "Hablemos →". */
+  ctaId?: string;
+  ctaLabel?: string;
+  /** Correo que aparece al pie del menú móvil. */
+  email?: string;
+}
+
+const LINKS: NonNullable<HeaderProps["links"]> = [
   { id: "proyectos", label: "Productos" },
   { id: "proceso", label: "Cómo trabajamos" },
   { id: "nosotros", label: "Nosotros" },
 ];
-const SPY_IDS = ["proyectos", "proceso", "nosotros", "contacto"];
 const MOBILE_MAX = 860;
 
-export default function Header() {
+/** Header fijo translúcido con logotipo, navegación con scroll spy y CTA amarillo; en móvil, hamburguesa que abre un menú a pantalla completa. */
+export function Header({ links = LINKS, ctaId = "contacto", ctaLabel = "Hablemos →", email = "Ceau922@gmail.com" }: HeaderProps) {
   const [active, setActive] = useState("");
   const [menu, setMenu] = useState(false);
   const navRef = useRef<HTMLElement>(null);
@@ -38,7 +50,7 @@ export default function Header() {
     const spy = () => {
       const line = window.innerHeight * 0.35;
       let cur = "";
-      SPY_IDS.forEach((id) => {
+      [...links.map((l) => l.id), ctaId].forEach((id) => {
         const el = document.getElementById(id);
         if (el && el.getBoundingClientRect().top <= line) cur = id;
       });
@@ -57,7 +69,7 @@ export default function Header() {
       window.removeEventListener("scroll", spy);
       window.removeEventListener("resize", resize);
     };
-  }, [moveBar]);
+  }, [moveBar, links, ctaId]);
 
   useEffect(() => {
     document.body.style.overflow = menu && window.innerWidth < MOBILE_MAX ? "hidden" : "";
@@ -70,10 +82,10 @@ export default function Header() {
       <header className="header">
         <div className="wrap header-in">
           <a href="#inicio" className="header-logo">
-            <img src="/assets/antoky-logo-blanco.png" alt="Antoky" />
+            <img src={assets.logoBlanco} alt="Antoky" />
           </a>
           <nav ref={navRef} className="nav m only-desktop">
-            {LINKS.map((l) => (
+            {links.map((l) => (
               <a
                 key={l.id}
                 href={"#" + l.id}
@@ -84,9 +96,9 @@ export default function Header() {
               </a>
             ))}
             <span ref={barRef} className="nav-bar" aria-hidden="true" />
-            <a href="#contacto" className="btn btn-y nav-cta">
-              Hablemos →
-            </a>
+            <Button size="pill" href={"#" + ctaId} className="nav-cta">
+              {ctaLabel}
+            </Button>
           </nav>
           <button
             type="button"
@@ -106,7 +118,7 @@ export default function Header() {
         <div className="mmenu-deco" />
         <div className="mmenu-body">
           <div className="eyebrow m">Menú</div>
-          {LINKS.map((l, idx) => (
+          {links.map((l, idx) => (
             <a
               key={l.id}
               href={"#" + l.id}
@@ -120,12 +132,12 @@ export default function Header() {
           ))}
         </div>
         <div className="mmenu-foot">
-          <a href="#contacto" onClick={close} tabIndex={menu ? 0 : -1} className="mmenu-cta m">
-            Hablemos →
+          <a href={"#" + ctaId} onClick={close} tabIndex={menu ? 0 : -1} className="mmenu-cta m">
+            {ctaLabel}
           </a>
           <div className="mmenu-info">
-            <a href="mailto:Ceau922@gmail.com" tabIndex={menu ? 0 : -1}>
-              Ceau922@gmail.com
+            <a href={"mailto:" + email} tabIndex={menu ? 0 : -1}>
+              {email}
             </a>
             <span>Colombia</span>
           </div>

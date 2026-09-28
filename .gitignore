@@ -3,3 +3,10 @@ node_modules
 out
 next-env.d.ts
 *.tsbuildinfo
+dist-ds
+design-system/assets.generated.ts
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules

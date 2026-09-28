@@ -1,8 +1,10 @@
 "use client";
 
 import { useRef } from "react";
+import { assets } from "./assets";
 
-export default function FooterLogo() {
+/** Logotipo gigante del footer a todo el ancho; en hover un brillo iridiscente sigue al cursor dentro de las letras. */
+export function FooterLogo() {
   const glowRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -18,8 +20,13 @@ export default function FooterLogo() {
         g.style.setProperty("--y", e.clientY - b.top + "px");
       }}
     >
-      <img src="/assets/antoky-logo-blanco.png" alt="Antoky" />
-      <div ref={glowRef} className="footer-glow" aria-hidden="true" />
+      <img src={assets.logoBlanco} alt="Antoky" />
+      <div
+        ref={glowRef}
+        className="footer-glow"
+        aria-hidden="true"
+        style={{ maskImage: `url(${assets.logoBlanco})`, WebkitMaskImage: `url(${assets.logoBlanco})` }}
+      />
     </div>
   );
 }

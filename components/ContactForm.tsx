@@ -1,12 +1,19 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { Button } from "./Button";
 
 // Endpoint que recibe el formulario como JSON (p. ej. Formspree: https://formspree.io/f/xxxx).
 // Sin definir, el envío se simula como en el prototipo.
-const ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
+const ENDPOINT = typeof process !== "undefined" ? process.env.NEXT_PUBLIC_FORM_ENDPOINT : undefined;
 
-export default function ContactForm() {
+export interface ContactFormProps {
+  /** URL que recibe el formulario como JSON. Por defecto NEXT_PUBLIC_FORM_ENDPOINT; sin endpoint el envío se simula. */
+  endpoint?: string;
+}
+
+/** Formulario de contacto (nombre, correo, teléfono, tipo de organización, mensaje) con campos oscuros y botón amarillo en píldora; muestra confirmación tras enviar. Va dentro de una tarjeta negra (.form-card). */
+export function ContactForm({ endpoint = ENDPOINT }: ContactFormProps) {
   const [enviado, setEnviado] = useState(false);
   const [nombre, setNombre] = useState("");
   const [enviando, setEnviando] = useState(false);
@@ -16,10 +23,10 @@ export default function ContactForm() {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     setError(false);
-    if (ENDPOINT) {
+    if (endpoint) {
       setEnviando(true);
       try {
-        const res = await fetch(ENDPOINT, {
+        const res = await fetch(endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json", Accept: "application/json" },
           body: JSON.stringify(Object.fromEntries(data)),
@@ -87,9 +94,9 @@ export default function ContactForm() {
           No pudimos enviar su mensaje. Inténtelo de nuevo o escríbanos a Ceau922@gmail.com.
         </p>
       )}
-      <button type="submit" className="btn btn-y form-submit m" disabled={enviando}>
+      <Button type="submit" size="lg" className="form-submit" disabled={enviando}>
         {enviando ? "Enviando…" : "Enviar mensaje →"}
-      </button>
+      </Button>
     </form>
   );
 }

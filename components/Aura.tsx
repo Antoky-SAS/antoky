@@ -2,7 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
-export default function Aura() {
+/** Aura del cursor: halo amarillo difuso que sigue el puntero y anillo que se expande al hacer clic. Solo escritorio; se monta una vez por página. */
+export function Aura() {
   const auraRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
 

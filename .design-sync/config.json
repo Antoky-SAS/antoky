@@ -1,0 +1,83 @@
+{
+  "projectId": "d4724689-6311-4a75-9191-46b426a08d39",
+  "shape": "package",
+  "pkg": "antoky-web",
+  "globalName": "Antoky",
+  "buildCmd": "npm run build:ds",
+  "entry": "./dist-ds/design-system/index.js",
+  "srcDir": "components",
+  "cssEntry": "dist-ds/styles.css",
+  "docsMap": {
+    "Logo": ".design-sync/groups/marca.md",
+    "FooterLogo": ".design-sync/groups/marca.md",
+    "Loader": ".design-sync/groups/marca.md",
+    "Aura": ".design-sync/groups/marca.md",
+    "Button": ".design-sync/groups/basicos.md",
+    "Chip": ".design-sync/groups/basicos.md",
+    "ChipList": ".design-sync/groups/basicos.md",
+    "Eyebrow": ".design-sync/groups/basicos.md",
+    "SectionHeading": ".design-sync/groups/basicos.md",
+    "ValueList": ".design-sync/groups/basicos.md",
+    "FeatureCard": ".design-sync/groups/tarjetas.md",
+    "ImageCard": ".design-sync/groups/tarjetas.md",
+    "StepCard": ".design-sync/groups/tarjetas.md",
+    "FounderCard": ".design-sync/groups/tarjetas.md",
+    "Header": ".design-sync/groups/secciones.md",
+    "Hero": ".design-sync/groups/secciones.md",
+    "Marquee": ".design-sync/groups/secciones.md",
+    "ProcessSteps": ".design-sync/groups/secciones.md",
+    "Founders": ".design-sync/groups/secciones.md",
+    "ContactInfo": ".design-sync/groups/secciones.md",
+    "ContactForm": ".design-sync/groups/secciones.md",
+    "Footer": ".design-sync/groups/secciones.md",
+    "Page": ".design-sync/groups/basicos.md"
+  },
+  "provider": {
+    "component": "Page",
+    "props": {
+      "fill": false
+    }
+  },
+  "overrides": {
+    "FeatureCard": {
+      "cardMode": "column"
+    },
+    "ContactForm": {
+      "cardMode": "single",
+      "viewport": "600x760"
+    },
+    "Hero": {
+      "cardMode": "column"
+    },
+    "Header": {
+      "cardMode": "column"
+    },
+    "Footer": {
+      "cardMode": "column"
+    },
+    "Marquee": {
+      "cardMode": "column"
+    },
+    "ProcessSteps": {
+      "cardMode": "column"
+    },
+    "Page": {
+      "cardMode": "column"
+    },
+    "FooterLogo": {
+      "cardMode": "column"
+    },
+    "Loader": {
+      "cardMode": "single",
+      "viewport": "800x500"
+    },
+    "Aura": {
+      "cardMode": "single",
+      "viewport": "640x440"
+    },
+    "Logo": {
+      "cardMode": "column"
+    }
+  },
+  "readmeHeader": ".design-sync/conventions.md"
+}

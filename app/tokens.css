@@ -1,0 +1,35 @@
+/* Tokens de marca Antoky. Mismos valores que globals.css (que los usa como hex literales);
+   úselos como var(--ak-*) en estilos nuevos. */
+:root{
+  /* Color */
+  --ak-negro:#0B0B0B;          /* fondo principal */
+  --ak-amarillo:#FFD600;       /* acento de marca, CTAs, resaltados */
+  --ak-amarillo-hover:#FFE34D; /* hover de enlaces */
+  --ak-blanco:#F5F5F5;         /* texto sobre negro, fondo de secciones claras */
+  --ak-superficie:#16181B;     /* tarjetas, campos, chips */
+  --ak-linea:#1C1F23;          /* divisores */
+  --ak-borde:#23262A;          /* borde de tarjetas */
+  --ak-borde-fuerte:#2A2E33;   /* borde de chips y campos */
+  --ak-gris-700:#3A3F45;
+  --ak-gris-500:#686F76;       /* texto terciario, numeración */
+  --ak-gris-400:#9AA0A6;       /* texto secundario, eyebrows */
+  --ak-gris-200:#D9DDE1;       /* párrafos sobre negro */
+  --ak-error:#FF6B6B;
+
+  /* Tipografía */
+  --ak-font-display:'Montserrat',sans-serif; /* títulos, botones, navegación (clase .m) */
+  --ak-font-body:'Inter',sans-serif;         /* cuerpo (clase .page) */
+
+  /* Radios */
+  --ak-radio-boton:6px;
+  --ak-radio-imagen:12px;
+  --ak-radio-campo:14px;
+  --ak-radio-tarjeta:20px;
+  --ak-radio-tarjeta-lg:24px;
+  --ak-radio-bloque:32px;
+  --ak-radio-pill:999px;
+
+  /* Layout */
+  --ak-ancho:1140px;           /* ancho máximo de .wrap */
+  --ak-gutter:clamp(20px,4vw,32px);
+}

@@ -1,12 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { assets } from "./assets";
 
-export default function Loader() {
+export interface LoaderProps {
+  /** Mantiene el loader visible (para previsualizarlo); por defecto sale tras la carga (~2.3s). */
+  hold?: boolean;
+}
+
+/** Pantalla de carga a pantalla completa: el isotipo A+Y se arma, aparece el logotipo y se llena una barra amarilla; luego sale con una cortina hacia arriba. */
+export function Loader({ hold = false }: LoaderProps) {
   const [loading, setLoading] = useState(true);
   const [gone, setGone] = useState(false);
 
   useEffect(() => {
+    if (hold) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setGone(true);
       return;
@@ -27,7 +35,7 @@ export default function Loader() {
       cancelled = true;
       clearTimeout(t);
     };
-  }, []);
+  }, [hold]);
 
   if (gone) return null;
 
@@ -35,10 +43,10 @@ export default function Loader() {
     <div className={`loader${loading ? "" : " out"}`} aria-hidden="true">
       <div className="loader-inner">
         <div className="loader-iso">
-          <img className="a" src="/assets/antoky-isotipo-a.png" alt="" />
-          <img className="y" src="/assets/antoky-isotipo-y.png" alt="" />
+          <img className="a" src={assets.isotipoA} alt="" />
+          <img className="y" src={assets.isotipoY} alt="" />
         </div>
-        <img className="loader-word" src="/assets/antoky-logo-blanco.png" alt="Antoky" />
+        <img className="loader-word" src={assets.logoBlanco} alt="Antoky" />
         <div className="loader-track">
           <div className="loader-bar" />
         </div>
