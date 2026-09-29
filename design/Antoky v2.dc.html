@@ -100,6 +100,36 @@ html{scroll-behavior:smooth}
 <section id="proyectos" data-screen-label="Productos" style="background:#F5F5F5;color:#0B0B0B">
   <div style="max-width:1140px;margin:0 auto;padding:clamp(64px,8vw,96px) clamp(20px,4vw,32px) clamp(72px,9vw,112px);display:flex;flex-direction:column;gap:20px">
     <div style="font-family:'Montserrat',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:#686F76;margin-bottom:12px">01 — Productos</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px">
+      <article style="background:#0B0B0B;color:#F5F5F5;border-radius:20px;overflow:hidden;display:flex;flex-direction:column">
+        <div style="position:relative;aspect-ratio:16/10;background:#16181B;border-bottom:1px solid #23262A">
+          <img src="assets/myslotfy.png" alt="Captura de MySlotfy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></img>
+        </div>
+        <div style="padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:14px;flex:1">
+          <span style="align-self:flex-start;font-size:13px;color:#FFD600;border:1px solid #2A2E33;background:#16181B;border-radius:999px;padding:6px 12px">Producto propio · Agendamiento</span>
+          <h3 style="font-family:'Montserrat',sans-serif;font-size:clamp(26px,2.6vw,34px);line-height:1.1;letter-spacing:-0.02em;font-weight:700;margin:0">MySlotfy</h3>
+          <p style="font-size:16px;line-height:1.6;color:#D9DDE1;margin:0;text-wrap:pretty">Agendamiento de citas en línea para pequeños negocios en Colombia. Sus clientes reservan solos y usted organiza su agenda desde un solo lugar.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:auto;padding-top:10px">
+            <a href="https://www.myslotfy.com/" target="_blank" rel="noopener" style="background:#FFD600;color:#0B0B0B;padding:12px 18px;border-radius:6px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:15px;transition:background .25s ease,color .25s ease,transform .25s ease,box-shadow .25s ease" style-hover="background:#F5F5F5;color:#0B0B0B;transform:translateY(-3px);box-shadow:0 12px 28px -6px rgba(255,214,0,0.55)">Visitar sitio ↗</a>
+            <a href="#contacto" style="background:transparent;color:#F5F5F5;border:1px solid #3A3F45;padding:11px 18px;border-radius:6px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:15px;transition:background .25s ease,color .25s ease,transform .25s ease,border-color .25s ease" style-hover="background:#F5F5F5;color:#0B0B0B;border-color:#F5F5F5;transform:translateY(-3px)">Solicitar demo</a>
+          </div>
+        </div>
+      </article>
+      <article style="background:#0B0B0B;color:#F5F5F5;border-radius:20px;overflow:hidden;display:flex;flex-direction:column">
+        <div style="position:relative;aspect-ratio:16/10;background:#16181B;border-bottom:1px solid #23262A">
+          <img src="assets/talentoya.png" alt="Captura de TalentoYa" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></img>
+        </div>
+        <div style="padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:14px;flex:1">
+          <span style="align-self:flex-start;font-size:13px;color:#FFD600;border:1px solid #2A2E33;background:#16181B;border-radius:999px;padding:6px 12px">Producto propio · Talento humano</span>
+          <h3 style="font-family:'Montserrat',sans-serif;font-size:clamp(26px,2.6vw,34px);line-height:1.1;letter-spacing:-0.02em;font-weight:700;margin:0">TalentoYa</h3>
+          <p style="font-size:16px;line-height:1.6;color:#D9DDE1;margin:0;text-wrap:pretty">Plataforma para gestionar el talento humano de su empresa: colaboradores, procesos y documentos organizados en un solo sistema.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:auto;padding-top:10px">
+            <a href="https://www.talentoya.com.co/" target="_blank" rel="noopener" style="background:#FFD600;color:#0B0B0B;padding:12px 18px;border-radius:6px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:15px;transition:background .25s ease,color .25s ease,transform .25s ease,box-shadow .25s ease" style-hover="background:#F5F5F5;color:#0B0B0B;transform:translateY(-3px);box-shadow:0 12px 28px -6px rgba(255,214,0,0.55)">Visitar sitio ↗</a>
+            <a href="#contacto" style="background:transparent;color:#F5F5F5;border:1px solid #3A3F45;padding:11px 18px;border-radius:6px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:15px;transition:background .25s ease,color .25s ease,transform .25s ease,border-color .25s ease" style-hover="background:#F5F5F5;color:#0B0B0B;border-color:#F5F5F5;transform:translateY(-3px)">Solicitar demo</a>
+          </div>
+        </div>
+      </article>
+    </div>
     <article style="position:relative;overflow:hidden;background:#0B0B0B;color:#F5F5F5;border-radius:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));min-height:420px">
       <div style="padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;justify-content:center;gap:18px;position:relative;z-index:2">
         <div style="display:flex;flex-wrap:wrap;gap:8px">
@@ -363,7 +393,7 @@ class Component extends DCLogic {
         w, h('span', { style: { width: 22, height: 12, background: '#FFD600', transform: 'skewX(-32deg)', display: 'block' } }))));
     const fdata = [
       { nombre: 'Carlos Arias', cargo: 'CoFounder - CEO', foto: 'assets/carlos-arias-v2.png', bio: 'Lidera la estrategia comercial y la relación con clientes. Se asegura de que cada solución responda a una necesidad real del negocio.' },
-      { nombre: 'Sebastián Valle', cargo: 'CoFounder - CTO', foto: 'assets/sebastian-valle-v2.png', bio: 'Dirige la arquitectura y el desarrollo de producto. Convierte procesos complejos en software claro, seguro y escalable.' }
+      { nombre: 'Sebastián Valle', cargo: 'CoFounder - CEO', foto: 'assets/sebastian-valle-v2.png', bio: 'Dirige la arquitectura y el desarrollo de producto. Convierte procesos complejos en software claro, seguro y escalable.' }
     ];
     const founders = fdata.map((d, i) => {
       const on = this.state.hoverF === i;

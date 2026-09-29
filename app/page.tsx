@@ -1,3 +1,4 @@
+import { assets, type AssetName } from "@/components/assets";
 import { Aura } from "@/components/Aura";
 import { ContactForm } from "@/components/ContactForm";
 import { ContactInfo } from "@/components/ContactInfo";
@@ -11,6 +12,7 @@ import { ImageCard } from "@/components/ImageCard";
 import { Loader } from "@/components/Loader";
 import { Marquee } from "@/components/Marquee";
 import { Page } from "@/components/Page";
+import { ProductCard } from "@/components/ProductCard";
 import { ProcessSteps } from "@/components/ProcessSteps";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ValueList } from "@/components/ValueList";
@@ -24,6 +26,25 @@ const FOTOS = [
   "photo-1498050108023-c5249f4df085",
 ].map((id) => `/assets/stock/${id}.jpg`);
 const GALERIA = [FOTOS.slice(0, 3).concat(FOTOS.slice(3, 4)), FOTOS.slice(3).concat(FOTOS.slice(0, 1))];
+
+const PROPIOS: { titulo: string; etiqueta: string; texto: string; img: AssetName; url: string }[] = [
+  {
+    titulo: "MySlotfy",
+    etiqueta: "Producto propio · Agendamiento",
+    texto:
+      "Agendamiento de citas en línea para pequeños negocios en Colombia. Sus clientes reservan solos y usted organiza su agenda desde un solo lugar.",
+    img: "capturaMyslotfy",
+    url: "https://www.myslotfy.com/",
+  },
+  {
+    titulo: "TalentoYa",
+    etiqueta: "Producto propio · Talento humano",
+    texto:
+      "Plataforma para gestionar el talento humano de su empresa: colaboradores, procesos y documentos organizados en un solo sistema.",
+    img: "capturaTalentoya",
+    url: "https://www.talentoya.com.co/",
+  },
+];
 
 const PRODUCTOS = [
   {
@@ -56,6 +77,19 @@ export default function Home() {
       <section id="proyectos" className="productos">
         <div className="wrap productos-in">
           <Eyebrow>01 — Productos</Eyebrow>
+          <div className="cards2">
+            {PROPIOS.map((p) => (
+              <ProductCard
+                key={p.titulo}
+                image={assets[p.img]}
+                alt={`Captura de ${p.titulo}`}
+                tag={p.etiqueta}
+                title={p.titulo}
+                text={p.texto}
+                url={p.url}
+              />
+            ))}
+          </div>
           <FeatureCard
             chips={["Notas y boletines", "Matrículas", "Asistencia", "Comunicación con padres"]}
             title="Software educativo"

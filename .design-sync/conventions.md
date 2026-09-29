@@ -32,7 +32,7 @@ No hay utilidades tipo Tailwind. Para el layout propio use estas clases (definid
 | `proceso`, `nosotros` | sección negra (el `h2` de `proceso` deja 72px debajo) |
 | `m` | tipografía Montserrat (títulos, botones, navegación) |
 | `hl` | texto en amarillo #FFD600 |
-| `cards2` | rejilla de 2 columnas para `ImageCard` |
+| `cards2` | rejilla de 2 columnas para `ProductCard` o `ImageCard` |
 | `contacto` + `contacto-in` | bloque amarillo redondeado (32px) de contacto |
 | `form-card` | tarjeta negra que contiene `ContactForm` |
 | `only-desktop` / `only-mobile` | visibilidad por debajo/encima de 860px |
@@ -44,7 +44,7 @@ Para estilos nuevos use los tokens `var(--ak-*)`: `--ak-negro`, `--ak-amarillo`,
 - CTA principal = `Button` (amarillo); secundario = `variant="light"`. Tamaños: `hero` en portadas, `md` en tarjetas, `pill` en navegación, `lg` en formularios.
 - `Eyebrow` sigue el patrón `"NN — Nombre"` (p. ej. `01 — Productos`).
 - `Logo tone="blanco"` sobre negro y `tone="negro"` sobre claro. Nunca sobre amarillo (la barra amarilla del logo desaparece).
-- Fotos de fundadores reales: `<Founders />` o `founders()` (Carlos Arias, CEO; Sebastián Valle, CTO). No invente otros miembros del equipo.
+- Fotos de fundadores reales: `<Founders />` o `founders()` (Carlos Arias y Sebastián Valle, ambos CoFounder - CEO). No invente otros miembros del equipo.
 - `Loader` y `Aura` son efectos de página completa: uno por página, como mucho.
 
 ## Dónde mirar

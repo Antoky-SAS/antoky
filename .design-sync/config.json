@@ -20,6 +20,7 @@
     "ValueList": ".design-sync/groups/basicos.md",
     "FeatureCard": ".design-sync/groups/tarjetas.md",
     "ImageCard": ".design-sync/groups/tarjetas.md",
+    "ProductCard": ".design-sync/groups/tarjetas.md",
     "StepCard": ".design-sync/groups/tarjetas.md",
     "FounderCard": ".design-sync/groups/tarjetas.md",
     "Header": ".design-sync/groups/secciones.md",

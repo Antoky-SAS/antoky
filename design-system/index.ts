@@ -19,6 +19,7 @@ export { Hero } from "../components/Hero";
 export { Marquee } from "../components/Marquee";
 export { FeatureCard } from "../components/FeatureCard";
 export { ImageCard } from "../components/ImageCard";
+export { ProductCard } from "../components/ProductCard";
 export { StepCard } from "../components/StepCard";
 export { ProcessSteps } from "../components/ProcessSteps";
 export { FounderCard } from "../components/FounderCard";

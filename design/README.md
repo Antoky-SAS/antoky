@@ -9,7 +9,15 @@
 >
 > **Cómo leer el HTML:** la maquetación está en el bloque `<x-dc>…</x-dc>`, con todos los estilos inline. Los `style-hover` / `style-focus` son los estados `:hover` / `:focus`. Los `{{ nombre }}` son valores que se calculan en `renderVals()`, dentro de la clase `Component` (en el `<script data-dc-script>` al final del archivo). Ahí están el loader, el aura, el marquee, la galería, el menú móvil, los cofounders y el scroll spy, con sus estilos exactos. `<sc-if>` es un render condicional y `<sc-for>` es un bucle.
 >
-> **Prompt sugerido para Claude Code:** *"Implementa el sitio de Antoky replicando exactamente `design_handoff_antoky_web/Antoky v2.dc.html`, que es la fuente de verdad. Lee primero el README y luego el HTML completo. Copia literalmente todos los valores de estilo, textos, animaciones y breakpoints. Usa las imágenes de `assets/`. Compara con `screenshots/` y con el prototipo abierto en el navegador hasta que sean idénticos."*
+> ## 🆕 Cambios de esta versión (actualización)
+> Si el sitio ya está implementado, aplique solo estos cambios (detalle en la sección 6 y en el HTML):
+> 1. **Productos:** nueva fila de **dos tarjetas destacadas** arriba de "Software educativo": **MySlotfy** y **TalentoYa**, cada una con captura, etiqueta, título, descripción y dos botones.
+> 2. **Nosotros:** Sebastián Valle pasa a **CoFounder - CEO** (ambos fundadores con el mismo cargo).
+> 3. **Assets nuevos:** `assets/myslotfy.png` y `assets/talentoya.png`.
+>
+> **Prompt sugerido para actualizar:** *"Lee `design_handoff_antoky_web/README.md` (sección 'Cambios de esta versión') y aplica al sitio existente solo esos cambios, replicando literalmente las tarjetas de MySlotfy y TalentoYa desde `design_handoff_antoky_web/Antoky v2.dc.html` (sección #proyectos) y cambiando el cargo de Sebastián Valle a 'CoFounder - CEO'. Copia `assets/myslotfy.png` y `assets/talentoya.png` al proyecto. Abre el prototipo en el navegador para compararlo (las capturas `02-productos.png` y `05-cofounders.png` son de la versión anterior; gana el HTML)."*
+>
+> **Prompt sugerido para Claude Code (desde cero):** *"Implementa el sitio de Antoky replicando exactamente `design_handoff_antoky_web/Antoky v2.dc.html`, que es la fuente de verdad. Lee primero el README y luego el HTML completo. Copia literalmente todos los valores de estilo, textos, animaciones y breakpoints. Usa las imágenes de `assets/`. Compara con `screenshots/` y con el prototipo abierto en el navegador hasta que sean idénticos."*
 
 ## Overview
 Sitio institucional de **Antoky**, empresa colombiana de software SaaS y desarrollo a la medida. Objetivo: presentar la marca y generar confianza en empresas, microempresas y colegios, y captar contactos mediante un formulario. Idioma: español (trato de "usted").
@@ -70,13 +78,21 @@ Orden: Loader → Header → Hero → Cinta deslizante → Productos → Cómo t
 
 ### 6. Productos (#proyectos) — fondo claro `#F5F5F5`, texto `#0B0B0B`
 - Padding `clamp(64px,8vw,96px)` arriba, `clamp(72px,9vw,112px)` abajo; columna con gap 20px.
+- **Orden:** etiqueta "01 — Productos" → fila de productos propios (MySlotfy, TalentoYa) → card "Software educativo" → fila de servicios (a la medida, app móvil).
+- **Productos propios (nuevo)** — grid `repeat(auto-fit,minmax(min(100%,420px),1fr))`, gap 20px. Cada tarjeta: fondo `#0B0B0B`, texto `#F5F5F5`, radio 20px, `overflow:hidden`, columna.
+  - Captura arriba: contenedor `aspect-ratio:16/10`, fondo `#16181B`, borde inferior `1px #23262A`; imagen `object-fit:cover` a sangre.
+  - Cuerpo (padding `clamp(24px,3vw,36px)`, gap 14px, `flex:1`): etiqueta pill (13px, `#FFD600`, borde `#2A2E33`, fondo `#16181B`, padding 6px 12px); H3 Montserrat `clamp(26px,2.6vw,34px)`/700, `-0.02em`; párrafo 16px/1.6 `#D9DDE1`; fila de botones (gap 12px, `margin-top:auto`, padding-top 10px) alineada abajo para que ambas tarjetas coincidan.
+  - Botón 1 "Visitar sitio ↗": amarillo, padding 12px 18px, radio 6px, 15px/600, abre en pestaña nueva (`target="_blank" rel="noopener"`). Hover como los demás amarillos.
+  - Botón 2 "Solicitar demo" → #contacto: transparente, texto `#F5F5F5`, borde `1px #3A3F45`, padding 11px 18px. Hover: fondo y borde `#F5F5F5`, texto `#0B0B0B`, `translateY(-3px)`.
+  - **MySlotfy** — `assets/myslotfy.png` — etiqueta "Producto propio · Agendamiento" — "Agendamiento de citas en línea para pequeños negocios en Colombia. Sus clientes reservan solos y usted organiza su agenda desde un solo lugar." — enlace `https://www.myslotfy.com/`.
+  - **TalentoYa** — `assets/talentoya.png` — etiqueta "Producto propio · Talento humano" — "Plataforma para gestionar el talento humano de su empresa: colaboradores, procesos y documentos organizados en un solo sistema." — enlace `https://www.talentoya.com.co/`.
 - **Card grande "Software educativo"**: fondo `#0B0B0B`, radio 20px, min-height 420px, grid `repeat(auto-fit,minmax(min(100%,420px),1fr))`.
   - Columna de texto (padding `clamp(28px,4vw,48px)`, gap 18px): chips (13px, `#FFD600`, borde `#2A2E33`, fondo `#16181B`, padding 6px 12px): Notas y boletines, Matrículas, Asistencia, Comunicación con padres. H2 Montserrat `clamp(26px,2.6vw,34px)`/700 "Software educativo". Párrafo 16px/1.6 `#D9DDE1`, max 460px: "Una plataforma en la nube para gestionar la vida académica de su colegio: directivos, docentes y familias conectados en un solo lugar." Viñetas (14px) con un paralelogramo amarillo de 10×10 (`clip-path:polygon(40% 0,100% 0,60% 100%,0 100%)`): SaaS, Web y móvil, Soporte incluido. Botón amarillo "Obtener software educativo" (15px).
   - Columna de galería (min-height 340px): dos filas de imágenes de 220×150 (radio 12px, gap 14px) que se deslizan en sentidos opuestos (38s hacia la izquierda, 46s en reversa). Un degradado de `#0B0B0B` a transparente cubre el 30% izquierdo.
 - **Dos cards abajo** (mismo grid, gap 20px): radio 20px, min-height 420px, imagen de fondo con `object-fit:cover` y degradado `rgba(11,11,11,0) 30% → rgba(11,11,11,0.92) 100%`. Contenido abajo (padding 28px, gap 12px): H3 Montserrat 26px/700, párrafo 16px `#D9DDE1`, botón claro (`#F5F5F5`, padding 10px 16px).
   - "Software a la medida" — "Aplicaciones web e integraciones diseñadas para sus procesos." — "Obtener software a la medida".
   - "Aplicación móvil" — "Apps para iOS y Android que acercan su servicio a sus clientes." — "Obtener aplicación móvil".
-- Todos los botones llevan a #contacto.
+- Todos los botones llevan a #contacto, salvo "Visitar sitio ↗" (web externa del producto).
 
 ### 7. Cómo trabajamos (#proceso)
 - Padding `clamp(72px,10vw,128px)`. H2 Montserrat `clamp(38px,5vw,68px)`/700, lh 1.02, `-0.035em`, max 860px, margen inferior 72px: "De la primera reunión a la entrega, **sin sorpresas.**" (la última parte en `#FFD600`).
@@ -94,7 +110,7 @@ Orden: Loader → Header → Hero → Cinta deslizante → Productos → Cómo t
   - **Hover**: la foto escala a 1.04 (0.5s) y aparece (opacidad 0→1, 0.35s) un overlay `linear-gradient(180deg, rgba(11,11,11,0.35) 0%, rgba(11,11,11,0.92) 60%)` con una línea amarilla de 32×3 y la bio (15px/1.6), padding 24px, alineada abajo.
   - Debajo de la foto: nombre Montserrat 20px/700; cargo 14px `#9AA0A6`.
   - **Carlos Arias** — CoFounder - CEO — `carlos-arias-v2.png` — "Lidera la estrategia comercial y la relación con clientes. Se asegura de que cada solución responda a una necesidad real del negocio."
-  - **Sebastián Valle** — CoFounder - CTO — `sebastian-valle-v2.png` — "Dirige la arquitectura y el desarrollo de producto. Convierte procesos complejos en software claro, seguro y escalable."
+  - **Sebastián Valle** — CoFounder - CEO — `sebastian-valle-v2.png` — "Dirige la arquitectura y el desarrollo de producto. Convierte procesos complejos en software claro, seguro y escalable."
   - Las bios están pendientes de validación final por el cliente.
 
 ### 9. Contacto (#contacto)
@@ -151,6 +167,7 @@ Orden: Loader → Header → Hero → Cinta deslizante → Productos → Cómo t
 - `assets/antoky-logo-blanco.png`, `antoky-logo-negro.png`: wordmark de la marca.
 - `assets/antoky-isotipo-blanco.png`, `antoky-isotipo-negro.png`: isotipo (usado en el loader).
 - `assets/carlos-arias-v2.png`, `assets/sebastian-valle-v2.png`: fotos reales de los fundadores.
+- `assets/myslotfy.png`, `assets/talentoya.png`: capturas de los productos propios (1672×941).
 - `assets/stock/*.jpg`: imágenes de stock de Unsplash, ya descargadas para uso local (pendientes de reemplazar por capturas o fotos reales de proyectos). Los nombres de archivo corresponden a estos IDs:
   - Galería educativa: IDs `photo-1509062522246-3755977927d7`, `photo-1503676260728-1c00da094a0b`, `photo-1524178232363-1fb2b075b655`, `photo-1427504494785-3a9ca7044f45`, `photo-1580582932707-520aed937b7b`, `photo-1498050108023-c5249f4df085`.
   - Software a la medida: `photo-1522071820081-009f0129c71c` · Aplicación móvil: `photo-1512941937669-90a1b58e7e9c`.

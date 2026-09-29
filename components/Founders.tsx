@@ -17,7 +17,7 @@ export function founders(): FounderCardProps[] {
     },
     {
       name: "Sebastián Valle",
-      role: "CoFounder - CTO",
+      role: "CoFounder - CEO",
       photo: assets.fotoSebastian,
       bio: "Dirige la arquitectura y el desarrollo de producto. Convierte procesos complejos en software claro, seguro y escalable.",
     },

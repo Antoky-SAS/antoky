@@ -2,7 +2,7 @@
 // 1) dist-ds/styles.css: fuentes + tokens.css + globals.css en un solo archivo.
 // 2) design-system/assets.generated.ts: los assets de marca como data URIs, para que el
 // bundle del sistema de diseño funcione sin servidor de archivos. Las fotos de los fundadores
-// se recomprimen a JPEG 800px (los PNG originales pesan ~1.8MB). Requiere ImageMagick (`convert`).
+// y las capturas de producto se recomprimen a JPEG 800px (los PNG originales pesan ~1.8MB). Requiere ImageMagick (`convert`).
 import { execFileSync } from "node:child_process";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
@@ -21,6 +21,8 @@ const out = {
   isotipoY: png("antoky-isotipo-y.png"),
   fotoCarlos: jpeg("carlos-arias-v2.png"),
   fotoSebastian: jpeg("sebastian-valle-v2.png"),
+  capturaMyslotfy: jpeg("myslotfy.png"),
+  capturaTalentoya: jpeg("talentoya.png"),
 };
 writeFileSync(
   "design-system/assets.generated.ts",

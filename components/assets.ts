@@ -10,6 +10,8 @@ export const assets = {
   isotipoY: "/assets/antoky-isotipo-y.png",
   fotoCarlos: "/assets/carlos-arias-v2.png",
   fotoSebastian: "/assets/sebastian-valle-v2.png",
+  capturaMyslotfy: "/assets/myslotfy.png",
+  capturaTalentoya: "/assets/talentoya.png",
 };
 
 export type AssetName = keyof typeof assets;
