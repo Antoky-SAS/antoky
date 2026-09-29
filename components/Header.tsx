@@ -22,7 +22,7 @@ const LINKS: NonNullable<HeaderProps["links"]> = [
 const MOBILE_MAX = 860;
 
 /** Header fijo translúcido con logotipo, navegación con scroll spy y CTA amarillo; en móvil, hamburguesa que abre un menú a pantalla completa. */
-export function Header({ links = LINKS, ctaId = "contacto", ctaLabel = "Hablemos →", email = "Ceau922@gmail.com" }: HeaderProps) {
+export function Header({ links = LINKS, ctaId = "contacto", ctaLabel = "Hablemos →", email = "contacto@antoky.com" }: HeaderProps) {
   const [active, setActive] = useState("");
   const [menu, setMenu] = useState(false);
   const navRef = useRef<HTMLElement>(null);

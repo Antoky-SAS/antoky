@@ -4,7 +4,7 @@ export interface ContactInfoProps {
 }
 
 const DATOS: NonNullable<ContactInfoProps["rows"]> = [
-  { label: "Correo", value: "Ceau922@gmail.com", href: "mailto:Ceau922@gmail.com" },
+  { label: "Correo", value: "contacto@antoky.com", href: "mailto:contacto@antoky.com" },
   { label: "WhatsApp", value: "+57 313 7264497", href: "https://wa.me/573137264497" },
   { label: "Ubicación", value: "Colombia" },
 ];

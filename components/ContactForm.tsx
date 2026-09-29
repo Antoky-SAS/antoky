@@ -3,12 +3,12 @@
 import { useState, type FormEvent } from "react";
 import { Button } from "./Button";
 
-// Endpoint que recibe el formulario como JSON (p. ej. Formspree: https://formspree.io/f/xxxx).
-// Sin definir, el envío se simula como en el prototipo.
-const ENDPOINT = typeof process !== "undefined" ? process.env.NEXT_PUBLIC_FORM_ENDPOINT : undefined;
+// Endpoint que recibe el formulario como JSON. Por defecto la API route propia (/api/contacto, envía con Resend).
+// Un endpoint vacío ("") simula el envío como en el prototipo.
+const ENDPOINT = (typeof process !== "undefined" ? process.env.NEXT_PUBLIC_FORM_ENDPOINT : undefined) ?? "/api/contacto";
 
 export interface ContactFormProps {
-  /** URL que recibe el formulario como JSON. Por defecto NEXT_PUBLIC_FORM_ENDPOINT; sin endpoint el envío se simula. */
+  /** URL que recibe el formulario como JSON. Por defecto NEXT_PUBLIC_FORM_ENDPOINT o /api/contacto; con "" el envío se simula. */
   endpoint?: string;
 }
 
@@ -85,13 +85,15 @@ export function ContactForm({ endpoint = ENDPOINT }: ContactFormProps) {
           <option>Otro</option>
         </select>
       </label>
+      {/* Honeypot anti-spam: invisible para personas, los bots lo llenan. */}
+      <input name="empresa_web" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: "absolute", left: "-9999px" }} />
       <label>
         Mensaje
         <textarea className="field" name="mensaje" rows={4} placeholder="Cuéntenos brevemente su proyecto" />
       </label>
       {error && (
         <p className="form-error" role="alert">
-          No pudimos enviar su mensaje. Inténtelo de nuevo o escríbanos a Ceau922@gmail.com.
+          No pudimos enviar su mensaje. Inténtelo de nuevo o escríbanos a contacto@antoky.com.
         </p>
       )}
       <Button type="submit" size="lg" className="form-submit" disabled={enviando}>

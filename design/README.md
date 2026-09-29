@@ -52,7 +52,7 @@ Orden: Loader → Header → Hero → Cinta deslizante → Productos → Cómo t
 - `position:fixed; inset:0; z-index:15; background:#0B0B0B`. Se abre en círculo desde el botón: `clip-path: circle(0px at calc(100% - 42px) 38px) → circle(150% at …)`, 0.7s `cubic-bezier(.7,0,.2,1)`. Bloquea el scroll del body mientras está abierto.
 - Decoración: paralelogramo amarillo `#FFD600` opacidad 0.9, arriba a la derecha (`top:-10%; right:-30%; 70%×60%; clip-path:polygon(60% 0,100% 0,40% 100%,0 100%)`).
 - Etiqueta "Menú", luego los enlaces grandes: Montserrat `clamp(34px,10vw,48px)`/700, `letter-spacing:-0.03em`, padding 12px 0, borde inferior `1px #1C1F23`, con número "01/02/03" delante (13px, `#686F76`, ancho 28px). Entrada escalonada: opacidad + `translateY(30px→0)`, delay `0.15s + i·0.07s`. El enlace activo en `#FFD600`.
-- Pie: botón "Hablemos →" a todo el ancho (pill, 18px 22px, 16px/600) y la fila "Ceau922@gmail.com" · "Colombia" (14px, `#9AA0A6`). Aparece con delay de 0.45s. Al tocar cualquier enlace, el menú se cierra.
+- Pie: botón "Hablemos →" a todo el ancho (pill, 18px 22px, 16px/600) y la fila "contacto@antoky.com" · "Colombia" (14px, `#9AA0A6`). Aparece con delay de 0.45s. Al tocar cualquier enlace, el menú se cierra.
 
 ### 4. Hero (#inicio)
 - Padding vertical: arriba `clamp(64px,10vw,120px)`, abajo `clamp(72px,10vw,130px)`.
@@ -100,7 +100,7 @@ Orden: Loader → Header → Hero → Cinta deslizante → Productos → Cómo t
 ### 9. Contacto (#contacto)
 - La sección tiene padding lateral/inferior `clamp(12px,3vw,32px)`. Bloque interior: fondo `#FFD600`, texto `#0B0B0B`, radio 32px, padding `clamp(28px,5vw,64px)`, grid `minmax(min(100%,360px),1fr)`, gap `clamp(32px,4vw,56px)`.
 - Izquierda: H2 Montserrat `clamp(34px,4vw,54px)`/700 "Construyamos el futuro juntos."; párrafo 18px `#2A2E33`: "Cuéntenos qué necesita. Respondemos en menos de un día hábil y la primera reunión es sin costo." Tabla de datos (15px, filas con padding 16px 0 y separadores `1px rgba(11,11,11,0.25)`):
-  - Correo → `mailto:Ceau922@gmail.com`
+  - Correo → `mailto:contacto@antoky.com`
   - WhatsApp → `+57 313 7264497` (enlace `https://wa.me/573137264497`)
   - Ubicación → Colombia
 - Derecha: tarjeta del formulario (fondo `#0B0B0B`, radio 24px, padding `clamp(24px,3vw,36px)`). Campos (etiqueta 13px `#D9DDE1`, gap 8px; input con fondo `#16181B`, borde `1px #2A2E33`, radio 14px, padding 15px 18px, 15px; al enfocar, borde `#FFD600`):
