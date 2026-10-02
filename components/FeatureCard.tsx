@@ -42,7 +42,7 @@ export function FeatureCard({ chips, title, text, bullets, cta, gallery }: Featu
           {gallery.map((fotos, r) => (
             <div key={r} className={`galeria-row${r % 2 ? " rev" : ""}`}>
               {[...fotos, ...fotos].map((src, i) => (
-                <img key={i} src={src} alt="" loading="lazy" />
+                <img key={i} src={src} alt="" loading="lazy" decoding="async" />
               ))}
             </div>
           ))}

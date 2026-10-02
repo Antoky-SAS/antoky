@@ -22,11 +22,8 @@ export function Loader({ hold = false }: LoaderProps) {
     let t: ReturnType<typeof setTimeout>;
     let cancelled = false;
     const minT = new Promise((res) => setTimeout(res, 2300));
-    const loaded =
-      document.readyState === "complete"
-        ? Promise.resolve()
-        : new Promise((res) => window.addEventListener("load", res, { once: true }));
-    Promise.all([minT, loaded]).then(() => {
+    // Espera las fuentes, no todas las imágenes (evento load): en redes lentas el loader no se alarga.
+    Promise.all([minT, document.fonts.ready]).then(() => {
       if (cancelled) return;
       setLoading(false);
       t = setTimeout(() => setGone(true), 900);
@@ -43,10 +40,10 @@ export function Loader({ hold = false }: LoaderProps) {
     <div className={`loader${loading ? "" : " out"}`} aria-hidden="true">
       <div className="loader-inner">
         <div className="loader-iso">
-          <img className="a" src={assets.isotipoBlanco} alt="" />
-          <img className="y" src={assets.isotipoBlanco} alt="" />
+          <img className="a" src={assets.isotipoBlanco} alt="" width={837} height={526} />
+          <img className="y" src={assets.isotipoBlanco} alt="" width={837} height={526} />
         </div>
-        <img className="loader-word" src={assets.logoBlanco} alt="Antoky" />
+        <img className="loader-word" src={assets.logoBlanco} alt="Antoky" width={1383} height={209} />
         <div className="loader-track">
           <div className="loader-bar" />
         </div>

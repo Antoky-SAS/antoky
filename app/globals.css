@@ -1,6 +1,6 @@
 /* Valores copiados literalmente de design/Antoky v2.dc.html (fuente de verdad). */
 
-body{margin:0;background:#0B0B0B;-webkit-font-smoothing:antialiased;font-family:'Bricolage Grotesque',sans-serif}
+body{margin:0;background:#0B0B0B;-webkit-font-smoothing:antialiased;font-family:var(--font-bricolage,'Bricolage Grotesque'),sans-serif}
 *{box-sizing:border-box}
 a{color:#FFD600;text-decoration:none}
 a:hover{color:#FFE34D}
@@ -13,9 +13,9 @@ html{scroll-behavior:smooth}
 @keyframes akWord{0%{clip-path:inset(0 100% 0 0)}100%{clip-path:inset(0 0 0 0)}}
 @keyframes akBar{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
 
-.m{font-family:'Bricolage Grotesque',sans-serif}
+.m{font-family:var(--font-bricolage,'Bricolage Grotesque'),sans-serif}
 
-.page{font-family:'Bricolage Grotesque',sans-serif;color:#F5F5F5;background:#0B0B0B;min-height:100vh;position:relative;isolation:isolate}
+.page{font-family:var(--font-bricolage,'Bricolage Grotesque'),sans-serif;color:#F5F5F5;background:#0B0B0B;min-height:100vh;position:relative;isolation:isolate}
 .wrap{max-width:1140px;margin:0 auto}
 
 /* ---------- Botones ---------- */
@@ -60,7 +60,7 @@ button.btn{border:none;cursor:pointer}
 .loader-iso img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
 .loader-iso .a{clip-path:polygon(0 0,100% 0,100% 100%,60% 100%,53% 40%,0 40%);animation:akA .7s cubic-bezier(.2,.8,.2,1) .15s both}
 .loader-iso .y{clip-path:polygon(27.5% 42.5%,52% 42.5%,24.3% 100%,0 100%);animation:akY .7s cubic-bezier(.2,.8,.2,1) .55s both}
-.loader-word{width:min(62vw,280px);display:block;animation:akWord .9s cubic-bezier(.7,0,.2,1) 1.05s both}
+.loader-word{width:min(62vw,280px);height:auto;display:block;animation:akWord .9s cubic-bezier(.7,0,.2,1) 1.05s both}
 .loader-track{width:min(62vw,280px);height:2px;background:#1C1F23;overflow:hidden}
 .loader-bar{height:100%;background:#FFD600;transform-origin:left;animation:akBar 2.1s cubic-bezier(.6,0,.3,1) both}
 
@@ -76,7 +76,7 @@ button.btn{border:none;cursor:pointer}
 .header{position:sticky;top:0;z-index:20;background:rgba(11,11,11,0.6);-webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%)}
 .header-in{padding:16px clamp(20px,4vw,32px);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
 .header-logo{display:flex;align-items:center}
-.header-logo img{height:24px;display:block}
+.header-logo img{height:24px;width:auto;display:block}
 .nav{position:relative;display:flex;align-items:center;gap:32px;font-size:14px;font-weight:500;flex-wrap:wrap}
 .nav-link{color:#D9DDE1;padding-bottom:8px;transition:color .3s ease}
 .nav-link:hover,.nav-link.on{color:#FFD600}
@@ -234,7 +234,7 @@ textarea.field{resize:vertical}
 .footer{background:transparent}
 .footer-in{padding:clamp(48px,7vw,72px) clamp(20px,4vw,32px) 32px}
 .footer-logo{position:relative}
-.footer-logo>img{width:100%;display:block}
+.footer-logo>img{width:100%;height:auto;display:block}
 .footer-glow{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .4s ease;-webkit-mask-image:url(/assets/antoky-logo-blanco.png);mask-image:url(/assets/antoky-logo-blanco.png);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;background:radial-gradient(circle 130px at var(--x,50%) var(--y,50%),#FF2BD6 0%,#7A5CFF 28%,#00E5FF 52%,#00FFA3 68%,rgba(0,255,163,0) 82%);animation:antokyHue 3s linear infinite}
 .footer-logo:hover .footer-glow{opacity:1}
 .footer-bottom{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:40px;padding-top:24px;border-top:1px solid #1C1F23;font-size:13px;color:#9AA0A6}

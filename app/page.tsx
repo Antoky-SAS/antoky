@@ -26,7 +26,7 @@ const FOTOS = [
   "photo-1427504494785-3a9ca7044f45",
   "photo-1580582932707-520aed937b7b",
   "photo-1498050108023-c5249f4df085",
-].map((id) => `/assets/stock/${id}.jpg`);
+].map((id) => `/assets/stock/${id}.webp`);
 const GALERIA = [FOTOS.slice(0, 3).concat(FOTOS.slice(3, 4)), FOTOS.slice(3).concat(FOTOS.slice(0, 1))];
 
 const PROPIOS: { titulo: string; etiqueta: string; texto: string; img: AssetName; url: string }[] = [
@@ -106,7 +106,7 @@ export default function Home() {
             {PRODUCTOS.map((p) => (
               <ImageCard
                 key={p.titulo}
-                image={`/assets/stock/${p.img}.jpg`}
+                image={`/assets/stock/${p.img}.webp`}
                 alt={p.alt}
                 title={p.titulo}
                 text={p.texto}

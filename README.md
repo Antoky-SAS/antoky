@@ -27,6 +27,13 @@ Reglas en `lib/contacto.ts` (compartidas cliente/servidor) y `lib/ratelimit.ts`:
 - Límite de envíos: 3 cada 10 min y 10 al día por IP; 5 al día por correo (429 con `Retry-After`).
 - Solo JSON (415), cuerpo máx. 10 KB (413), `Origin` debe ser el propio sitio (403).
 
+## Rendimiento
+- `npm run images`: genera los `.webp` redimensionados de `public/assets/` desde los PNG/JPG originales
+  (`scripts/optimize-images.mjs`). Correrlo al cambiar o agregar imágenes; el sitio usa los `.webp`.
+- La aurora de fondo dibuja en un Web Worker (`components/aurora.worker.ts` + `aurora-core.ts`).
+  `predev`/`prebuild` lo transpilan a `public/aurora/` (`scripts/build-worker.mjs`, salida ignorada por git).
+- La fuente (Bricolage Grotesque, archivo latin de Google Fonts) está self-hosted en `app/fonts/` vía `next/font/local`.
+
 ## Estructura
 - `app/page.tsx`: secciones (hero, cinta, productos, proceso, nosotros, contacto, footer).
 - `app/globals.css`: todos los estilos, copiados literalmente del prototipo.

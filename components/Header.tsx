@@ -82,7 +82,7 @@ export function Header({ links = LINKS, ctaId = "contacto", ctaLabel = "Hablemos
       <header className="header">
         <div className="wrap header-in">
           <a href="#inicio" className="header-logo">
-            <img src={assets.logoBlanco} alt="Antoky" />
+            <img src={assets.logoBlanco} alt="Antoky" width={1383} height={209} fetchPriority="high" />
           </a>
           <nav ref={navRef} className="nav m only-desktop">
             {links.map((l) => (

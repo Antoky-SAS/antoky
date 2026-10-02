@@ -19,7 +19,7 @@ export function ProductCard({ image, alt = "", tag, title, text, url, demoHref =
   return (
     <article className="card-prod" data-tilt="">
       <div className="card-prod-shot" data-depth="-0.7">
-        <img src={image} alt={alt} loading="lazy" />
+        <img src={image} alt={alt} loading="lazy" decoding="async" />
       </div>
       <div className="card-prod-body" data-depth="1">
         <span className="card-prod-tag">{tag}</span>

@@ -13,7 +13,7 @@ export interface ImageCardProps {
 export function ImageCard({ image, alt = "", title, text, cta }: ImageCardProps) {
   return (
     <article className="card-img" data-tilt="">
-      <img src={image} alt={alt} loading="lazy" data-depth="-1.2" />
+      <img src={image} alt={alt} loading="lazy" decoding="async" data-depth="-1.2" />
       <div className="card-img-shade" />
       <div className="card-img-body" data-depth="1.3">
         <h3 className="m">{title}</h3>

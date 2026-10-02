@@ -14,7 +14,7 @@ export function FounderCard({ name, role, photo, bio }: FounderCardProps) {
     <div className="founder">
       <div className="founder-photo" data-tilt="">
         <div className="founder-back" style={{ backgroundImage: `url(${photo})` }} />
-        <img src={photo} alt={name} loading="lazy" />
+        <img src={photo} alt={name} loading="lazy" decoding="async" />
         <div className="founder-deco" />
         {bio && (
           <div className="founder-over">

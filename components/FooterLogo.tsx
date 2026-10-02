@@ -18,7 +18,7 @@ export function FooterLogo() {
         g.style.setProperty("--y", e.clientY - b.top + "px");
       }}
     >
-      <img src={assets.logoBlanco} alt="Antoky" />
+      <img src={assets.logoBlanco} alt="Antoky" width={1383} height={209} loading="lazy" decoding="async" />
       <div
         ref={glowRef}
         className="footer-glow"

@@ -1,6 +1,16 @@
 import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
 import "./tokens.css";
 import "./globals.css";
+
+// Archivo latin exacto que sirve Google Fonts (opsz 12–96, wght 300–800), self-hosted con next/font:
+// se precarga y no bloquea el render. next/font/google entrega otra versión con métricas distintas.
+const bricolage = localFont({
+  src: "./fonts/bricolage-grotesque-latin.woff2",
+  weight: "300 800",
+  display: "swap",
+  variable: "--font-bricolage",
+});
 
 const description =
   "Antoky: software SaaS y desarrollo a la medida para empresas, microempresas y colegios. Tecnología con compromiso y visión de futuro, desde Colombia.";
@@ -25,15 +35,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es-CO">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="es-CO" className={bricolage.variable}>
       <body>{children}</body>
     </html>
   );

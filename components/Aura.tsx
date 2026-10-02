@@ -10,10 +10,19 @@ export function Aura() {
   useEffect(() => {
     if (window.matchMedia("(pointer: coarse)").matches) return;
     let tx = -500, ty = -500, x = tx, y = ty;
+    let raf = 0;
+    const tick = () => {
+      x += (tx - x) * 0.14;
+      y += (ty - y) * 0.14;
+      if (auraRef.current) auraRef.current.style.transform = `translate(${x}px,${y}px)`;
+      // Se detiene al alcanzar el cursor; pointermove lo reanuda.
+      raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.1 ? requestAnimationFrame(tick) : 0;
+    };
     const move = (e: PointerEvent) => {
       tx = e.clientX;
       ty = e.clientY;
       if (auraRef.current) auraRef.current.style.opacity = "1";
+      if (!raf) raf = requestAnimationFrame(tick);
     };
     const leave = () => {
       if (auraRef.current) auraRef.current.style.opacity = "0";
@@ -27,14 +36,6 @@ export function Aura() {
         { duration: 650, easing: "cubic-bezier(.2,.7,.2,1)" }
       );
     };
-    let raf = 0;
-    const tick = () => {
-      x += (tx - x) * 0.14;
-      y += (ty - y) * 0.14;
-      if (auraRef.current) auraRef.current.style.transform = `translate(${x}px,${y}px)`;
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
     window.addEventListener("pointermove", move);
     window.addEventListener("pointerdown", down);
     document.addEventListener("pointerleave", leave);
