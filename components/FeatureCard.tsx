@@ -13,11 +13,11 @@ export interface FeatureCardProps {
   gallery?: string[][];
 }
 
-/** Tarjeta destacada de producto: bloque negro redondeado (20px) con chips, título, texto, viñetas y CTA amarillo, más galería animada de fotos. */
+/** Tarjeta destacada de producto: bloque translúcido (glass) redondeado (20px) con inclinación 3D suave con chips, título, texto, viñetas y CTA amarillo, más galería animada de fotos. */
 export function FeatureCard({ chips, title, text, bullets, cta, gallery }: FeatureCardProps) {
   return (
-    <article className="card-edu">
-      <div className="card-edu-text">
+    <article className="card-edu" data-tilt="" data-tilt-scale="0.4">
+      <div className="card-edu-text" data-depth="1">
         {chips && chips.length > 0 && <ChipList items={chips} />}
         <h2 className="m">{title}</h2>
         <p>{text}</p>
@@ -38,7 +38,7 @@ export function FeatureCard({ chips, title, text, bullets, cta, gallery }: Featu
         )}
       </div>
       {gallery && gallery.length > 0 && (
-        <div className="galeria">
+        <div className="galeria" data-depth="-0.6">
           {gallery.map((fotos, r) => (
             <div key={r} className={`galeria-row${r % 2 ? " rev" : ""}`}>
               {[...fotos, ...fotos].map((src, i) => (

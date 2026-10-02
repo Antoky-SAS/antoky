@@ -14,14 +14,14 @@ export interface ProductCardProps {
   demoHref?: string;
 }
 
-/** Tarjeta negra de producto propio: captura arriba, etiqueta, título, texto y botones "Visitar sitio ↗" / "Solicitar demo" alineados abajo. */
+/** Tarjeta translúcida (glass) de producto propio, con inclinación 3D: captura arriba, etiqueta, título, texto y botones "Visitar sitio ↗" / "Solicitar demo" alineados abajo. */
 export function ProductCard({ image, alt = "", tag, title, text, url, demoHref = "#contacto" }: ProductCardProps) {
   return (
-    <article className="card-prod">
-      <div className="card-prod-shot">
+    <article className="card-prod" data-tilt="">
+      <div className="card-prod-shot" data-depth="-0.7">
         <img src={image} alt={alt} loading="lazy" />
       </div>
-      <div className="card-prod-body">
+      <div className="card-prod-body" data-depth="1">
         <span className="card-prod-tag">{tag}</span>
         <h3 className="m">{title}</h3>
         <p>{text}</p>

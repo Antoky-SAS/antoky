@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-/** Aura del cursor: halo amarillo difuso que sigue el puntero y anillo que se expande al hacer clic. Solo escritorio; se monta una vez por página. */
+/** Aura del cursor: anillo amarillo que se expande al hacer clic, siguiendo el puntero con suavizado. Solo escritorio; se monta una vez por página. */
 export function Aura() {
   const auraRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
@@ -48,7 +48,6 @@ export function Aura() {
 
   return (
     <div ref={auraRef} className="aura" aria-hidden="true">
-      <div className="aura-glow" />
       <div ref={ringRef} className="aura-ring" />
     </div>
   );

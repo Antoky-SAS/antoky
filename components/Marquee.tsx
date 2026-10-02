@@ -5,7 +5,7 @@ export interface MarqueeProps {
 
 const WORDS = ["Innovación", "Estrategia", "Personas", "Resultados", "SaaS", "Desarrollo a la medida"];
 
-/** Cinta animada de palabras en mayúsculas (Montserrat 700, 22px) que se desplaza en bucle. */
+/** Cinta animada de palabras en mayúsculas (Bricolage Grotesque 700, 22px) que se desplaza en bucle. */
 export function Marquee({ words = WORDS }: MarqueeProps) {
   const track = [...words, ...words, ...words, ...words];
   return (

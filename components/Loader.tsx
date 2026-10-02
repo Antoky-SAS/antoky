@@ -43,8 +43,8 @@ export function Loader({ hold = false }: LoaderProps) {
     <div className={`loader${loading ? "" : " out"}`} aria-hidden="true">
       <div className="loader-inner">
         <div className="loader-iso">
-          <img className="a" src={assets.isotipoA} alt="" />
-          <img className="y" src={assets.isotipoY} alt="" />
+          <img className="a" src={assets.isotipoBlanco} alt="" />
+          <img className="y" src={assets.isotipoBlanco} alt="" />
         </div>
         <img className="loader-word" src={assets.logoBlanco} alt="Antoky" />
         <div className="loader-track">

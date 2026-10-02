@@ -6,7 +6,7 @@ export interface PageProps {
   fill?: boolean;
 }
 
-/** Raíz de toda página Antoky: fondo negro #0B0B0B, texto #F5F5F5 y tipografía Inter. Envuelva siempre la composición en él. */
+/** Raíz de toda página Antoky: fondo negro #0B0B0B, texto #F5F5F5 y tipografía Bricolage Grotesque. Envuelva siempre la composición en él. */
 export function Page({ children, fill = true }: PageProps) {
   return (
     <div className="page" style={fill ? undefined : { minHeight: 0 }}>

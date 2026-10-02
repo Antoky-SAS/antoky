@@ -9,13 +9,36 @@
 >
 > **Cómo leer el HTML:** la maquetación está en el bloque `<x-dc>…</x-dc>`, con todos los estilos inline. Los `style-hover` / `style-focus` son los estados `:hover` / `:focus`. Los `{{ nombre }}` son valores que se calculan en `renderVals()`, dentro de la clase `Component` (en el `<script data-dc-script>` al final del archivo). Ahí están el loader, el aura, el marquee, la galería, el menú móvil, los cofounders y el scroll spy, con sus estilos exactos. `<sc-if>` es un render condicional y `<sc-for>` es un bucle.
 >
-> ## 🆕 Cambios de esta versión (actualización)
-> Si el sitio ya está implementado, aplique solo estos cambios (detalle en la sección 6 y en el HTML):
-> 1. **Productos:** nueva fila de **dos tarjetas destacadas** arriba de "Software educativo": **MySlotfy** y **TalentoYa**, cada una con captura, etiqueta, título, descripción y dos botones.
-> 2. **Nosotros:** Sebastián Valle pasa a **CoFounder - CEO** (ambos fundadores con el mismo cargo).
-> 3. **Assets nuevos:** `assets/myslotfy.png` y `assets/talentoya.png`.
+> ## 🆕 Cambios de esta versión (actualización 2)
+> Si el sitio ya está implementado, aplique **solo** estos cambios. Los valores exactos están en `Antoky v2.dc.html` (gana el HTML). Las capturas de `screenshots/` son de la versión anterior.
 >
-> **Prompt sugerido para actualizar:** *"Lee `design_handoff_antoky_web/README.md` (sección 'Cambios de esta versión') y aplica al sitio existente solo esos cambios, replicando literalmente las tarjetas de MySlotfy y TalentoYa desde `design_handoff_antoky_web/Antoky v2.dc.html` (sección #proyectos) y cambiando el cargo de Sebastián Valle a 'CoFounder - CEO'. Copia `assets/myslotfy.png` y `assets/talentoya.png` al proyecto. Abre el prototipo en el navegador para compararlo (las capturas `02-productos.png` y `05-cofounders.png` son de la versión anterior; gana el HTML)."*
+> 1. **Tipografía:** toda la página (títulos y cuerpo) pasa de Montserrat/Inter a **Bricolage Grotesque** (Google Fonts: `family=Bricolage+Grotesque:opsz,wght@12..96,300..800`). Pesos y tamaños se mantienen.
+> 2. **Aura del cursor:** se elimina el halo amarillo que seguía al puntero. **Solo queda el anillo del clic**: círculo de 90px con borde de 2px `#FFD600`, que anima `scale(0.2)→1.6` y `opacity 0.9→0` en 650ms con `cubic-bezier(.2,.7,.2,1)`.
+> 3. **Aurora de fondo (nueva):** canvas detrás de todo el contenido (`z-index:-1` dentro de una raíz con `position:relative; isolation:isolate`). Va **anclado al documento**, no fijo en la pantalla, para que no salte al hacer scroll. Se divide en tiles de 640px y solo se redibujan los visibles. Ver `auroraBuild()`, `drawAurora()` y `drawRegion()` en el HTML.
+>    - 5 cintas color lima (`rgb(212,255,58)` y núcleo `rgb(238,255,175)`). Cada una tiene 15 líneas finas en escritorio y 11 en móvil, y la cinta secundaria 8 y 6. Siguen un spline Catmull-Rom con ondulación senoidal y suavizado; los puntos de control están en fracciones del ancho y del alto del documento.
+>    - La cinta se torsiona: su ancho varía a lo largo del recorrido.
+>    - La luz corre por las líneas con `setLineDash` animado.
+>    - 320 chispas que titilan (160 en móvil).
+>    - Halo: una copia a 1/4 de resolución con `blur(5px)`, sumada con `lighter` al 60%.
+>    - Intensidad 10/10 y velocidad ×1.3 (valores por defecto). En móvil va a 30fps. Con `prefers-reduced-motion` queda estática.
+>    - Las secciones oscuras pasan a `background:transparent` para dejar ver la aurora. El negro `#0B0B0B` lo pone la raíz.
+> 4. **Productos ahora es oscuro:** fondo transparente sobre negro, texto `#F5F5F5` y eyebrow `#9AA0A6`.
+> 5. **Tarjetas translúcidas (glass):** las de Productos y Cómo trabajamos usan `background:rgba(18,20,23,0.55); backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,0.07)`. Los chips usan `rgba(22,24,27,0.7)`. **No llevan ningún borde amarillo ni lima.**
+> 6. **Inclinación 3D en tarjetas (`[data-tilt]`):** aplica a MySlotfy, TalentoYa, Software educativo, las dos tarjetas con foto, las 4 de Cómo trabajamos y los retratos de los fundadores. Ver `initTilt()`.
+>    - **Inclinación:** máximo **20°** según la posición del cursor. Software educativo usa 0.4× por ser ancha.
+>    - **Transform:** `perspective(1000px) translateY(-lift) rotateX rotateY scale(1.025)`.
+>    - **Reflejo:** `radial-gradient` blanco que sigue al cursor, con `mix-blend-mode:screen`.
+>    - **Profundidad:** los hijos con `data-depth` se desplazan en paralaje (`translate = -rotY·depth·0.9, rotX·depth·0.9`). Imágenes en negativo y texto en positivo; las `<img>` llevan además `scale(1.07)`.
+>    - **Retorno:** resorte con rebote elástico (rigidez 150, amortiguación 9). En hover usa rigidez 260 y amortiguación 24.
+>    - **Restricciones:** solo en escritorio con puntero fino (`(hover:hover) and (pointer:fine)` y ancho ≥860px). Sin borde de color.
+> 7. **Loader:** se corrige el recorte del isotipo para que la pieza amarilla no arrastre parte de la A blanca:
+>    - Pieza A: `clip-path: polygon(0 0,100% 0,100% 100%,60% 100%,53% 40%,0 40%)`.
+>    - Pieza Y: `clip-path: polygon(27.5% 42.5%,52% 42.5%,24.3% 100%,0 100%)`.
+> 8. **Nosotros:** ambos fundadores pasan a **"CoFounder"** (sin "- CEO").
+> 9. **Footer:** sin cambios (se mantiene el brillo iridiscente original).
+> 10. **No implementar:** el isotipo 3D saltarín (`initHopper`, `showHopper:false`). Está apagado en el diseño.
+>
+> **Prompt sugerido para actualizar:** *"Lee `design_handoff_antoky_web/README.md`, sección 'Cambios de esta versión (actualización 2)', y aplica al sitio existente solo esos 10 puntos. Replica literalmente los valores, la lógica de la aurora (auroraBuild/drawAurora/drawRegion) y la de la inclinación 3D (initTilt) desde `design_handoff_antoky_web/Antoky v2.dc.html`, que es la fuente de verdad. Implementa la aurora y la inclinación como componentes cliente aislados (por ejemplo `<AuroraBackground />` y un hook `useTilt`) que limpien sus listeners y requestAnimationFrame al desmontarse. Abre el prototipo con `npx serve design_handoff_antoky_web` y compáralo con tu implementación en 1440, 1024, 768 y 390px."*
 >
 > **Prompt sugerido para Claude Code (desde cero):** *"Implementa el sitio de Antoky replicando exactamente `design_handoff_antoky_web/Antoky v2.dc.html`, que es la fuente de verdad. Lee primero el README y luego el HTML completo. Copia literalmente todos los valores de estilo, textos, animaciones y breakpoints. Usa las imágenes de `assets/`. Compara con `screenshots/` y con el prototipo abierto en el navegador hasta que sean idénticos."*
 
@@ -31,7 +54,7 @@ Sitio institucional de **Antoky**, empresa colombiana de software SaaS y desarro
 ## Estructura global
 - Página única con scroll suave (`html{scroll-behavior:smooth}`); anclas `#inicio`, `#proyectos`, `#proceso`, `#nosotros`, `#contacto`.
 - Contenedor: `max-width:1140px; margin:0 auto; padding-inline: clamp(20px,4vw,32px)`.
-- Fondo general `#0B0B0B`, texto `#F5F5F5`, fuente cuerpo Inter, títulos Montserrat.
+- Fondo general `#0B0B0B`, texto `#F5F5F5`, fuente **Bricolage Grotesque** en títulos y cuerpo (ver actualización 2).
 - Breakpoint principal: **860px** (por debajo = móvil: menú hamburguesa, pastillas del hero separadas).
 - Etiqueta de sección ("01 — Productos", etc.): Montserrat 12px/500, `letter-spacing:0.3em`, mayúsculas, color `#9AA0A6` (sobre claro `#686F76`).
 
@@ -60,7 +83,7 @@ Orden: Loader → Header → Hero → Cinta deslizante → Productos → Cómo t
 - `position:fixed; inset:0; z-index:15; background:#0B0B0B`. Se abre en círculo desde el botón: `clip-path: circle(0px at calc(100% - 42px) 38px) → circle(150% at …)`, 0.7s `cubic-bezier(.7,0,.2,1)`. Bloquea el scroll del body mientras está abierto.
 - Decoración: paralelogramo amarillo `#FFD600` opacidad 0.9, arriba a la derecha (`top:-10%; right:-30%; 70%×60%; clip-path:polygon(60% 0,100% 0,40% 100%,0 100%)`).
 - Etiqueta "Menú", luego los enlaces grandes: Montserrat `clamp(34px,10vw,48px)`/700, `letter-spacing:-0.03em`, padding 12px 0, borde inferior `1px #1C1F23`, con número "01/02/03" delante (13px, `#686F76`, ancho 28px). Entrada escalonada: opacidad + `translateY(30px→0)`, delay `0.15s + i·0.07s`. El enlace activo en `#FFD600`.
-- Pie: botón "Hablemos →" a todo el ancho (pill, 18px 22px, 16px/600) y la fila "contacto@antoky.com" · "Colombia" (14px, `#9AA0A6`). Aparece con delay de 0.45s. Al tocar cualquier enlace, el menú se cierra.
+- Pie: botón "Hablemos →" a todo el ancho (pill, 18px 22px, 16px/600) y la fila "Ceau922@gmail.com" · "Colombia" (14px, `#9AA0A6`). Aparece con delay de 0.45s. Al tocar cualquier enlace, el menú se cierra.
 
 ### 4. Hero (#inicio)
 - Padding vertical: arriba `clamp(64px,10vw,120px)`, abajo `clamp(72px,10vw,130px)`.
@@ -116,7 +139,7 @@ Orden: Loader → Header → Hero → Cinta deslizante → Productos → Cómo t
 ### 9. Contacto (#contacto)
 - La sección tiene padding lateral/inferior `clamp(12px,3vw,32px)`. Bloque interior: fondo `#FFD600`, texto `#0B0B0B`, radio 32px, padding `clamp(28px,5vw,64px)`, grid `minmax(min(100%,360px),1fr)`, gap `clamp(32px,4vw,56px)`.
 - Izquierda: H2 Montserrat `clamp(34px,4vw,54px)`/700 "Construyamos el futuro juntos."; párrafo 18px `#2A2E33`: "Cuéntenos qué necesita. Respondemos en menos de un día hábil y la primera reunión es sin costo." Tabla de datos (15px, filas con padding 16px 0 y separadores `1px rgba(11,11,11,0.25)`):
-  - Correo → `mailto:contacto@antoky.com`
+  - Correo → `mailto:Ceau922@gmail.com`
   - WhatsApp → `+57 313 7264497` (enlace `https://wa.me/573137264497`)
   - Ubicación → Colombia
 - Derecha: tarjeta del formulario (fondo `#0B0B0B`, radio 24px, padding `clamp(24px,3vw,36px)`). Campos (etiqueta 13px `#D9DDE1`, gap 8px; input con fondo `#16181B`, borde `1px #2A2E33`, radio 14px, padding 15px 18px, 15px; al enfocar, borde `#FFD600`):

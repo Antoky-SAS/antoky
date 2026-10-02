@@ -1,6 +1,6 @@
 # Antoky — convenciones de uso
 
-Marca de software colombiana: fondo negro, acento amarillo, títulos Montserrat, cuerpo Inter, textos en español (trato de "usted"). Los componentes viven en `window.Antoky.*`.
+Marca de software colombiana: fondo negro, acento amarillo, títulos y cuerpo Bricolage Grotesque, textos en español (trato de "usted"). Los componentes viven en `window.Antoky.*`.
 
 ## Raíz obligatoria
 Envuelva siempre la composición en `<Page>`. Aporta fondo `#0B0B0B`, texto `#F5F5F5` e Inter; sin él los textos salen negros sobre blanco y los títulos pierden color. `fill={false}` si no debe ocupar todo el alto de la ventana.
@@ -30,7 +30,7 @@ No hay utilidades tipo Tailwind. Para el layout propio use estas clases (definid
 | `sec-in` | padding vertical/horizontal de sección |
 | `productos` | sección **clara** (#F5F5F5, texto negro; el `Eyebrow` pasa a gris #686F76) |
 | `proceso`, `nosotros` | sección negra (el `h2` de `proceso` deja 72px debajo) |
-| `m` | tipografía Montserrat (títulos, botones, navegación) |
+| `m` | tipografía Bricolage Grotesque (títulos, botones, navegación) |
 | `hl` | texto en amarillo #FFD600 |
 | `cards2` | rejilla de 2 columnas para `ProductCard` o `ImageCard` |
 | `contacto` + `contacto-in` | bloque amarillo redondeado (32px) de contacto |

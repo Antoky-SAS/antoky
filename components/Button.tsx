@@ -20,7 +20,7 @@ export interface ButtonProps {
 const VARIANT = { primary: "btn-y", light: "btn-l", outline: "btn-o" };
 const SIZE = { md: "btn-md", hero: "btn-hero", pill: "btn-pill", lg: "btn-lg" };
 
-/** Botón de marca Antoky: amarillo o blanco sobre texto negro, tipografía Montserrat, se eleva en hover. */
+/** Botón de marca Antoky: amarillo o blanco sobre texto negro, tipografía Bricolage Grotesque, se eleva en hover. */
 export function Button({ variant = "primary", size = "md", href, external, type = "button", disabled, onClick, className, children }: ButtonProps) {
   const cls = ["btn", VARIANT[variant], SIZE[size], className, "m"].filter(Boolean).join(" ");
   if (href) {

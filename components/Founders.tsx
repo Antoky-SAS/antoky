@@ -11,13 +11,13 @@ export function founders(): FounderCardProps[] {
   return [
     {
       name: "Carlos Arias",
-      role: "CoFounder - CEO",
+      role: "CoFounder",
       photo: assets.fotoCarlos,
       bio: "Lidera la estrategia comercial y la relación con clientes. Se asegura de que cada solución responda a una necesidad real del negocio.",
     },
     {
       name: "Sebastián Valle",
-      role: "CoFounder - CEO",
+      role: "CoFounder",
       photo: assets.fotoSebastian,
       bio: "Dirige la arquitectura y el desarrollo de producto. Convierte procesos complejos en software claro, seguro y escalable.",
     },

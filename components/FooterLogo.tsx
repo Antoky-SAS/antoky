@@ -10,8 +10,6 @@ export function FooterLogo() {
   return (
     <div
       className="footer-logo"
-      onMouseEnter={() => document.documentElement.classList.add("aura-exotic")}
-      onMouseLeave={() => document.documentElement.classList.remove("aura-exotic")}
       onMouseMove={(e) => {
         const g = glowRef.current;
         if (!g) return;

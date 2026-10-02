@@ -17,8 +17,8 @@
   --ak-error:#FF6B6B;
 
   /* Tipografía */
-  --ak-font-display:'Montserrat',sans-serif; /* títulos, botones, navegación (clase .m) */
-  --ak-font-body:'Inter',sans-serif;         /* cuerpo (clase .page) */
+  --ak-font-display:'Bricolage Grotesque',sans-serif; /* títulos, botones, navegación (clase .m) */
+  --ak-font-body:'Bricolage Grotesque',sans-serif; /* cuerpo (clase .page) */
 
   /* Radios */
   --ak-radio-boton:6px;

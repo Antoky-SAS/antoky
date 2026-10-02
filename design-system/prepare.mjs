@@ -31,7 +31,7 @@ writeFileSync(
 for (const [k, v] of Object.entries(out)) console.log(k, Math.round(v.length / 1024) + "KB");
 
 const FONTS =
-  '@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@400;500&display=swap");';
+  '@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap");';
 mkdirSync("dist-ds", { recursive: true });
 writeFileSync(
   "dist-ds/styles.css",

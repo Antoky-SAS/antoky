@@ -1,6 +1,6 @@
 export interface FounderCardProps {
   name: string;
-  /** Cargo, p. ej. "CoFounder - CEO". */
+  /** Cargo, p. ej. "CoFounder". */
   role: string;
   /** URL de la foto (retrato vertical 4:5). */
   photo: string;
@@ -12,7 +12,7 @@ export interface FounderCardProps {
 export function FounderCard({ name, role, photo, bio }: FounderCardProps) {
   return (
     <div className="founder">
-      <div className="founder-photo">
+      <div className="founder-photo" data-tilt="">
         <div className="founder-back" style={{ backgroundImage: `url(${photo})` }} />
         <img src={photo} alt={name} loading="lazy" />
         <div className="founder-deco" />
