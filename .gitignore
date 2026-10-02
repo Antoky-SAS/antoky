@@ -12,3 +12,4 @@ ds-bundle/
 .design-sync/node_modules
 .env*
 !.env.example
+.vercel

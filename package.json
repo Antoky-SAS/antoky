@@ -9,6 +9,8 @@
     "build:ds": "node design-system/prepare.mjs && tsc -p design-system"
   },
   "dependencies": {
+    "@upstash/ratelimit": "^2.2.0",
+    "@upstash/redis": "^1.39.0",
     "next": "16.3.6",
     "react": "19.3.0",
     "react-dom": "19.3.0",

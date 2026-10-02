@@ -7,10 +7,10 @@ const description =
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://antoky.com"),
-  title: "Antoky · Soluciones tecnológicas desde Colombia",
+  title: "Antoky S.A.S · Soluciones tecnológicas desde Colombia",
   description,
   openGraph: {
-    title: "Antoky · Soluciones tecnológicas desde Colombia",
+    title: "Antoky S.A.S · Soluciones tecnológicas desde Colombia",
     description,
     type: "website",
     locale: "es_CO",
