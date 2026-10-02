@@ -7,9 +7,7 @@
     "build": "next build",
     "start": "next start",
     "build:ds": "node design-system/prepare.mjs && tsc -p design-system",
-    "images": "node scripts/optimize-images.mjs",
-    "predev": "node scripts/build-worker.mjs",
-    "prebuild": "node scripts/build-worker.mjs"
+    "images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "@upstash/ratelimit": "^2.2.0",

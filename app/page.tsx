@@ -1,6 +1,5 @@
 import { assets, type AssetName } from "@/components/assets";
 import { Aura } from "@/components/Aura";
-import { AuroraBackground } from "@/components/AuroraBackground";
 import { ContactForm } from "@/components/ContactForm";
 import { ContactInfo } from "@/components/ContactInfo";
 import { Eyebrow } from "@/components/Eyebrow";
@@ -68,7 +67,6 @@ const PRODUCTOS = [
 export default function Home() {
   return (
     <Page>
-      <AuroraBackground />
       <Loader />
       <Aura />
       <Tilt />

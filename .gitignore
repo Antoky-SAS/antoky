@@ -13,4 +13,3 @@ ds-bundle/
 .env*
 !.env.example
 .vercel
-public/aurora/

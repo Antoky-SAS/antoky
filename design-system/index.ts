@@ -30,5 +30,4 @@ export { Footer } from "../components/Footer";
 export { FooterLogo } from "../components/FooterLogo";
 export { Loader } from "../components/Loader";
 export { Aura } from "../components/Aura";
-export { AuroraBackground } from "../components/AuroraBackground";
 export { Tilt, useTilt } from "../components/useTilt";

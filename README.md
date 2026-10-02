@@ -30,8 +30,6 @@ Reglas en `lib/contacto.ts` (compartidas cliente/servidor) y `lib/ratelimit.ts`:
 ## Rendimiento
 - `npm run images`: genera los `.webp` redimensionados de `public/assets/` desde los PNG/JPG originales
   (`scripts/optimize-images.mjs`). Correrlo al cambiar o agregar imágenes; el sitio usa los `.webp`.
-- La aurora de fondo dibuja en un Web Worker (`components/aurora.worker.ts` + `aurora-core.ts`).
-  `predev`/`prebuild` lo transpilan a `public/aurora/` (`scripts/build-worker.mjs`, salida ignorada por git).
 - La fuente (Bricolage Grotesque, archivo latin de Google Fonts) está self-hosted en `app/fonts/` vía `next/font/local`.
 
 ## Estructura
