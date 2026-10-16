@@ -1,7 +1,8 @@
 # Antoky — sitio web
 
 Landing de una página. Next.js 16 (App Router) con export estático (`out/`).
-Fuente de verdad del diseño: `design/Antoky v2.dc.html` (+ `design/README.md`, `design/screenshots/`).
+Fuente de verdad del diseño: `Antoky Home v5.dc.html` en claude.ai/design (proyecto f4b66606-76f4-40ed-b062-44bb0957493d).
+`design/` guarda la versión anterior (v2), que es la que documenta el sistema de diseño (`design-system/`).
 
 ```bash
 npm install
@@ -21,8 +22,7 @@ npm start       # sirve out/
 
 ## Seguridad del formulario de contacto
 Reglas en `lib/contacto.ts` (compartidas cliente/servidor) y `lib/ratelimit.ts`:
-- Límites: nombre 80, correo 120, teléfono 20, mensaje 1000 caracteres. El servidor rechaza (400) lo que los supere.
-- Teléfono: solo dígitos, espacios, guiones y `+` inicial (el campo filtra letras al escribir o pegar).
+- Campos: nombre (80), empresa (120), correo (120) y problema operativo (1000, obligatorio). El servidor rechaza (400) lo que no cumpla.
 - Anti-bots: honeypot `empresa_web` y tiempo mínimo de 3 s entre abrir y enviar (respuesta OK silenciosa).
 - Límite de envíos: 3 cada 10 min y 10 al día por IP; 5 al día por correo (429 con `Retry-After`).
 - Solo JSON (415), cuerpo máx. 10 KB (413), `Origin` debe ser el propio sitio (403).
@@ -30,13 +30,14 @@ Reglas en `lib/contacto.ts` (compartidas cliente/servidor) y `lib/ratelimit.ts`:
 ## Rendimiento
 - `npm run images`: genera los `.webp` redimensionados de `public/assets/` desde los PNG/JPG originales
   (`scripts/optimize-images.mjs`). Correrlo al cambiar o agregar imágenes; el sitio usa los `.webp`.
-- La fuente (Bricolage Grotesque, archivo latin de Google Fonts) está self-hosted en `app/fonts/` vía `next/font/local`.
+- Fuentes (Schibsted Grotesk, Instrument Serif, Geist Mono) vía `next/font/google`: se descargan en el build y se sirven desde el sitio.
 
 ## Estructura
-- `app/page.tsx`: secciones (hero, cinta, productos, proceso, nosotros, contacto, footer).
-- `app/globals.css`: todos los estilos, copiados literalmente del prototipo.
-- `components/`: partes interactivas (loader, aura del cursor, header + menú móvil + scroll spy, formulario, logo del footer).
-- `public/assets/`: logos, fotos de los fundadores e imágenes de stock.
+- `app/page.tsx`: secciones (hero, problemas, soluciones, sectores + cinta, diagnóstico, portal, método, nosotros, contacto, footer).
+- `app/home.css`: estilos del sitio, copiados del diseño v5.
+- `app/globals.css`, `app/tokens.css` y el resto de `components/`: solo para el bundle del sistema de diseño (v2).
+- Partes interactivas: `HeroField` (canvas del hero), `Carousel`, `PageEffects` (barra de progreso, aparición al hacer scroll), `ContactForm` + `EnvioCarro` (animación de envío).
+- `public/assets/`: logos, fotos de los fundadores; `public/assets/cinta/`: fotos de Unsplash de la cinta de sectores.
 
 ## Pendientes (del handoff)
 - Reemplazar las imágenes de stock por material real.

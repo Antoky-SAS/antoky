@@ -1,26 +1,39 @@
 import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
-import "./tokens.css";
-import "./globals.css";
+import { Geist_Mono, Instrument_Serif, Schibsted_Grotesk } from "next/font/google";
+import "./home.css";
 
-// Archivo latin exacto que sirve Google Fonts (opsz 12–96, wght 300–800), self-hosted con next/font:
-// se precarga y no bloquea el render. next/font/google entrega otra versión con métricas distintas.
-const bricolage = localFont({
-  src: "./fonts/bricolage-grotesque-latin.woff2",
-  weight: "300 800",
+// next/font descarga las fuentes en el build y las sirve desde el propio sitio.
+const sans = Schibsted_Grotesk({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  style: ["normal", "italic"],
   display: "swap",
-  variable: "--font-bricolage",
+  variable: "--font-sans",
+});
+const serif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-serif",
+});
+const mono = Geist_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+  variable: "--font-mono",
 });
 
+const title = "Antoky S.A.S · Software a medida, automatización e IA para empresas";
 const description =
-  "Antoky: software SaaS y desarrollo a la medida para empresas, microempresas y colegios. Tecnología con compromiso y visión de futuro, desde Colombia.";
+  "Desarrollamos software a medida, automatizaciones y soluciones con inteligencia artificial para que tu empresa trabaje con mayor eficiencia. Agroindustria y distribución, desde Colombia.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://antoky.com"),
-  title: "Antoky S.A.S · Soluciones tecnológicas desde Colombia",
+  title,
   description,
   openGraph: {
-    title: "Antoky S.A.S · Soluciones tecnológicas desde Colombia",
+    title,
     description,
     type: "website",
     locale: "es_CO",
@@ -30,12 +43,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0B0B0B",
+  themeColor: "#F3F3F0",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es-CO" className={bricolage.variable}>
+    <html lang="es-CO" className={`${sans.variable} ${serif.variable} ${mono.variable}`}>
       <body>{children}</body>
     </html>
   );
