@@ -15,7 +15,7 @@ export interface ContactFormProps {
   endpoint?: string;
 }
 
-/** Formulario de diagnóstico (nombre, empresa, correo, problema operativo); tras enviar muestra la confirmación con la animación del carro. */
+/** Formulario de contacto (nombre, empresa, correo o WhatsApp, problema); tras enviar muestra la confirmación con la animación del carro. */
 export function ContactForm({ endpoint = ENDPOINT }: ContactFormProps) {
   const [enviado, setEnviado] = useState(false);
   const [nombre, setNombre] = useState("");
@@ -70,16 +70,16 @@ export function ContactForm({ endpoint = ENDPOINT }: ContactFormProps) {
           </span>
         </div>
         <div className="ok-text">
-          <span className="mono ok-eyebrow">SOLICITUD ENVIADA</span>
+          <span className="mono ok-eyebrow">SOLICITUD REGISTRADA</span>
           <h3>
-            Recibimos tu solicitud, <span className="serif">{nombre}.</span>
+            Gracias, <span className="serif">{nombre}.</span>
           </h3>
-          <p>Revisaremos lo que nos contaste y te contactaremos por correo para acordar la fecha de la conversación inicial.</p>
+          <p>Revisaremos lo que nos contaste y te escribiremos por el medio que indicaste para acordar la conversación inicial.</p>
         </div>
         <EnvioCarro className="ok-envio" />
         <button
           type="button"
-          className="btn-ghost ok-again"
+          className="ok-again"
           onClick={() => {
             setEnviado(false);
             setNombre("");
@@ -105,14 +105,21 @@ export function ContactForm({ endpoint = ENDPOINT }: ContactFormProps) {
         </label>
       </div>
       <label>
-        Correo corporativo
-        <input className="field" name="correo" type="email" required maxLength={LIMITES.correo} placeholder="nombre@tuempresa.com" autoComplete="email" />
+        Correo o WhatsApp
+        <input
+          className="field"
+          name="contacto"
+          required
+          maxLength={LIMITES.contacto}
+          placeholder="nombre@tuempresa.com o +57 300 000 0000"
+          autoComplete="email"
+        />
       </label>
       {/* Honeypot anti-spam: invisible para personas, los bots lo llenan. */}
       <input name="empresa_web" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: "absolute", left: "-9999px" }} />
       <label>
         <span className="form-q">
-          ¿Cuál es el principal problema operativo que quieres resolver?
+          ¿Qué problema quieres resolver?
           <span className="mono" aria-live="polite">
             {problema.length}/{LIMITES.problema}
           </span>
@@ -122,7 +129,7 @@ export function ContactForm({ endpoint = ENDPOINT }: ContactFormProps) {
           name="problema"
           required
           maxLength={LIMITES.problema}
-          placeholder="Cuéntanos con tus palabras qué está pasando hoy en tu operación."
+          placeholder="Con tus palabras. Por ejemplo: cada semana perdemos horas consolidando pedidos de varias hojas de cálculo."
           value={problema}
           onChange={(e) => setProblema(e.target.value)}
         />
@@ -132,10 +139,16 @@ export function ContactForm({ endpoint = ENDPOINT }: ContactFormProps) {
           {error}
         </p>
       )}
-      <button type="submit" className="form-submit" disabled={enviando}>
-        {enviando ? "Enviando…" : "Agendar una conversación inicial →"}
+      <button type="submit" data-pearl="" disabled={enviando}>
+        <span>
+          <i>
+            <b>✧</b>
+            <b>✦</b>
+            {enviando ? "Enviando…" : "Solicitar una conversación inicial"}
+          </i>
+        </span>
       </button>
-      <span className="form-note">Primera conversación sin costo y sin compromiso de contratación.</span>
+      <span className="form-note">Registramos tu solicitud y te contactamos para acordar la fecha. Sin costo y sin compromiso.</span>
     </form>
   );
 }

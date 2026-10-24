@@ -11,6 +11,9 @@ const jobs = [
   ["talentoya.png", 1200],
   ["carlos-arias-v2.png", 640],
   ["sebastian-valle-v2.png", 640],
+  // Antes/después del diseño v8 (~640px en pantalla).
+  ["flujo/antes-flujo-manual.png", 1280],
+  ["flujo/despues-flujo-automatizado.png", 1280],
 ];
 // Stock: las de tarjetas grandes a 1200px, las de la galería (220px en pantalla) a 440px.
 const TARJETAS = ["photo-1522071820081-009f0129c71c.jpg", "photo-1512941937669-90a1b58e7e9c.jpg"];

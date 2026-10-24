@@ -61,10 +61,11 @@ export async function POST(req: Request) {
 
   const v = validar(body);
   if (!v.ok) return error(v.error, 400);
-  const { nombre, empresa, correo, problema } = v.datos;
+  const { nombre, empresa, contacto, correo, problema } = v.datos;
 
   // Se limita después de validar para que corregir un error de escritura no gaste intentos.
-  const espera = await limiteExcedido(ipDe(req), correo);
+  // Clave por contacto: el correo, o solo los dígitos del teléfono.
+  const espera = await limiteExcedido(ipDe(req), correo ?? contacto.replace(/\D/g, ""));
   if (espera) {
     return error("Demasiadas solicitudes. Inténtalo más tarde.", 429, { "Retry-After": String(espera) });
   }
@@ -78,14 +79,14 @@ export async function POST(req: Request) {
   const { error: errEnvio } = await new Resend(apiKey).emails.send({
     from: FROM,
     to: TO,
-    replyTo: correo,
-    subject: `Solicitud de diagnóstico: ${nombre} (${empresa})`,
+    ...(correo ? { replyTo: correo } : {}),
+    subject: `Solicitud de conversación: ${nombre} (${empresa})`,
     text: [
       `Nombre: ${nombre}`,
       `Empresa: ${empresa}`,
-      `Correo: ${correo}`,
+      `${correo ? "Correo" : "WhatsApp"}: ${contacto}`,
       "",
-      "Principal problema operativo:",
+      "Problema que quiere resolver:",
       problema,
     ].join("\n"),
   });

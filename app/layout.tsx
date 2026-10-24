@@ -26,7 +26,7 @@ const mono = Geist_Mono({
 
 const title = "Antoky S.A.S · Software a medida, automatización e IA para empresas";
 const description =
-  "Desarrollamos software a medida, automatizaciones y soluciones con inteligencia artificial para que tu empresa trabaje con mayor eficiencia. Agroindustria y distribución, desde Colombia.";
+  "Menos tareas manuales, menos errores, más control. Ayudamos a empresas a resolver problemas operativos con software a medida, automatización e inteligencia artificial, desde Colombia.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://antoky.com"),
