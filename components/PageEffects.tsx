@@ -13,9 +13,16 @@ const $$ = <T extends Element = HTMLElement>(q: string, root: ParentNode = docum
 
 type Cleanup = () => void;
 
+/** Salto desde un enlace interno: mientras dura el scroll suave los efectos se congelan; al llegar, cada uno se ajusta sin transición. */
+const jump = { on: false, snaps: new Set<() => void>() };
+function onSnap(fn: () => void): Cleanup {
+  jump.snaps.add(fn);
+  return () => jump.snaps.delete(fn);
+}
+
 function on(target: EventTarget, type: string, fn: EventListener, opts?: AddEventListenerOptions): Cleanup {
   target.addEventListener(type, fn, opts);
-  return () => target.removeEventListener(type, fn);
+  return () => target.removeEventListener(type, fn, opts);
 }
 
 /** Letras del titular que se inclinan al pasar el cursor. */
@@ -121,6 +128,12 @@ function setupHero(still: boolean): Cleanup {
       hclone.style.clipPath =
         p > 0 && wr.bottom > 0 ? `circle(${br.toFixed(1)}px at ${(wr.left + bx - hr.left).toFixed(1)}px ${(wr.top + by - hr.top).toFixed(1)}px)` : "circle(0px at 50% 200%)";
     }
+    tone(cover);
+  };
+  /** Header oscuro sobre fondos oscuros (sigue activo durante un salto). */
+  const tone = (cover = false) => {
+    if (!hdr) return;
+    const y = hdr.offsetHeight + 1;
     // Se ignora el loader, que cubre la página al inicio.
     const dark = isDarkBg(document.elementsFromPoint(innerWidth / 2, y).filter((el) => !hdr.contains(el) && !el.closest(".loader"))[0]);
     if ((hdr.dataset.dark === "1") !== dark) hdr.dataset.dark = dark ? "1" : "";
@@ -130,6 +143,7 @@ function setupHero(still: boolean): Cleanup {
 
   const update = () => {
     raf = 0;
+    if (jump.on) return tone();
     const H = inner.offsetHeight;
     wrap.style.height = H + "px";
     const dist = Math.max(1, hero.offsetHeight - H);
@@ -164,7 +178,7 @@ function setupHero(still: boolean): Cleanup {
   const onScroll = () => {
     if (!raf) raf = requestAnimationFrame(update);
   };
-  const offs = [on(window, "scroll", onScroll, { passive: true }), on(window, "resize", update)];
+  const offs = [on(window, "scroll", onScroll, { passive: true }), on(window, "resize", update), onSnap(update)];
   return () => {
     offs.forEach((f) => f());
     cancelAnimationFrame(raf);
@@ -240,6 +254,7 @@ function setupPin(still: boolean): Cleanup {
     }
   };
   const tick = () => {
+    if (jump.on) return void (raf = 0);
     const t = target();
     cur += (t - cur) * 0.085;
     if (Math.abs(t - cur) < 0.0005) cur = t;
@@ -250,7 +265,14 @@ function setupPin(still: boolean): Cleanup {
   const onScroll = () => {
     if (!raf) raf = requestAnimationFrame(tick);
   };
-  const offs = [on(window, "scroll", onScroll, { passive: true }), on(window, "resize", onScroll)];
+  const offs = [
+    on(window, "scroll", onScroll, { passive: true }),
+    on(window, "resize", onScroll),
+    onSnap(() => {
+      cur = target();
+      render(cur);
+    }),
+  ];
   return () => {
     offs.forEach((f) => f());
     cancelAnimationFrame(raf);
@@ -301,6 +323,7 @@ function setupTilt(still: boolean): Cleanup {
       o.style.filter = b > 0.01 ? `blur(${(b * 8).toFixed(1)}px)` : "";
     });
   const tick = () => {
+    if (jump.on) return void (raf = 0);
     const t = tgt();
     if (!cur) cur = t.map((v) => v.slice());
     let moving = false;
@@ -322,7 +345,15 @@ function setupTilt(still: boolean): Cleanup {
   const onScroll = () => {
     if (!raf) raf = requestAnimationFrame(tick);
   };
-  offs.push(on(window, "scroll", onScroll, { passive: true }), on(window, "resize", onScroll), () => cancelAnimationFrame(raf));
+  offs.push(
+    on(window, "scroll", onScroll, { passive: true }),
+    on(window, "resize", onScroll),
+    onSnap(() => {
+      cur = tgt();
+      draw(cur);
+    }),
+    () => cancelAnimationFrame(raf),
+  );
 
   // Inclinación con el cursor (solo con mouse).
   if (matchMedia("(hover: hover)").matches) {
@@ -418,6 +449,7 @@ function setupFx(still: boolean): Cleanup {
   };
   const frame = () => {
     raf = 0;
+    if (jump.on) return;
     const H = innerHeight;
     if (bens.length) {
       let best = 0,
@@ -513,7 +545,14 @@ function setupFx(still: boolean): Cleanup {
     layout();
     onScroll();
   };
-  const offs = [on(window, "scroll", onScroll, { passive: true }), on(window, "resize", onResize)];
+  const offs = [
+    on(window, "scroll", onScroll, { passive: true }),
+    on(window, "resize", onResize),
+    onSnap(() => {
+      hcur = null;
+      frame();
+    }),
+  ];
   let ro: ResizeObserver | undefined;
   if (track && hin) {
     ro = new ResizeObserver(onResize);
@@ -560,6 +599,7 @@ function setupNav(): Cleanup {
   const links = $$<HTMLAnchorElement>("[data-hdr]:not(.hclone) [data-hnav] a");
   const ids = ["nosotros", "metodo", "demostraciones", "resultados", "demo", "problemas"];
   const spy = () => {
+    if (jump.on) return;
     let cur = "";
     for (const id of ids) {
       const r = document.getElementById(id)?.getBoundingClientRect();
@@ -576,7 +616,7 @@ function setupNav(): Cleanup {
     });
   };
   spy();
-  offs.push(on(window, "scroll", spy, { passive: true }));
+  offs.push(on(window, "scroll", spy, { passive: true }), onSnap(spy));
   return () => {
     offs.forEach((f) => f());
     ro?.disconnect();
@@ -589,14 +629,19 @@ function setupReveal(still: boolean): Cleanup {
   const io = new IntersectionObserver(
     (es) =>
       es.forEach((e) => {
-        if (!e.isIntersecting) return;
-        const el = e.target as HTMLElement;
-        el.style.opacity = "1";
-        el.style.transform = "none";
-        io.unobserve(el);
+        // Durante un salto se ignora; sigue observado y aparece si el usuario vuelve.
+        if (!e.isIntersecting || jump.on) return;
+        show(e.target as HTMLElement);
       }),
     { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
   );
+  const hidden = new Set<HTMLElement>();
+  const show = (el: HTMLElement) => {
+    el.style.opacity = "1";
+    el.style.transform = "none";
+    io.unobserve(el);
+    hidden.delete(el);
+  };
   $$("[data-reveal]").forEach((el) => {
     if (el.getBoundingClientRect().top < innerHeight) return;
     const sib = el.parentElement ? [...el.parentElement.children].filter((c) => c.hasAttribute("data-reveal")).indexOf(el) : 0;
@@ -604,9 +649,97 @@ function setupReveal(still: boolean): Cleanup {
     el.style.opacity = "0";
     el.style.transform = "translateY(28px)";
     el.style.transition = `opacity .8s cubic-bezier(.2,.7,.2,1) ${delay}ms, transform .8s cubic-bezier(.2,.7,.2,1) ${delay}ms`;
+    hidden.add(el);
     io.observe(el);
   });
-  return () => io.disconnect();
+  // Al llegar de un salto, lo visible aparece ya colocado, sin animación.
+  const off = onSnap(() =>
+    hidden.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.bottom <= 0 || r.top >= innerHeight) return;
+      el.style.transition = "none";
+      show(el);
+    }),
+  );
+  return () => {
+    off();
+    io.disconnect();
+  };
+}
+
+/** Enlaces internos (#id): salto instantáneo hasta cerca del destino y tramo final animado a mano (igual en todos los
+ *  navegadores), sin recorrer las secciones fijas de por medio. Los efectos se congelan durante el tramo y se ajustan
+ *  al llegar; la rueda, la pantalla o una tecla lo sueltan antes. */
+function setupJump(still: boolean): Cleanup {
+  let raf = 0;
+  const to = (top: number) => window.scrollTo({ top, behavior: "instant" });
+  // Los efectos ignoran el scroll mientras jump.on; para ajustarlos se suelta un momento.
+  const snapAll = () => {
+    const was = jump.on;
+    jump.on = false;
+    jump.snaps.forEach((f) => f());
+    jump.on = was;
+  };
+  const end = () => {
+    cancelAnimationFrame(raf);
+    raf = 0;
+    if (!jump.on) return;
+    jump.on = false;
+    snapAll();
+    delete document.documentElement.dataset.jump;
+  };
+  const onClick = (ev: Event) => {
+    const e = ev as MouseEvent;
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const a = e.target instanceof Element ? e.target.closest<HTMLAnchorElement>('a[href^="#"]') : null;
+    const id = a?.getAttribute("href")?.slice(1);
+    const el = id ? document.getElementById(id) : null;
+    if (!el) return;
+    e.preventDefault();
+    end();
+    if (location.hash !== "#" + id) history.pushState(null, "", "#" + id);
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const goal = Math.round(clamp(el.getBoundingClientRect().top + scrollY - (parseFloat(getComputedStyle(el).scrollMarginTop) || 0), 0, max));
+    const dist = goal - scrollY;
+    if (Math.abs(dist) < 2) return;
+    jump.on = true;
+    // Sin transiciones de color del header mientras dura (ver home.css).
+    document.documentElement.dataset.jump = "1";
+    if (still) {
+      to(goal);
+      return end();
+    }
+    const hop = Math.min(Math.abs(dist), innerHeight * 0.6);
+    const from = goal - Math.sign(dist) * hop;
+    // Antes del tramo, y sin pintar entre medias: lo que se ve en el punto de partida aparece ya revelado, y el resto de
+    // efectos queda en su estado final (el del destino), así no cambian durante el tramo ni al llegar.
+    to(from);
+    snapAll();
+    to(goal);
+    snapAll();
+    to(from);
+    const t0 = performance.now(),
+      dur = 550;
+    const step = (now: number) => {
+      const k = clamp((now - t0) / dur);
+      to(from + (goal - from) * (1 - Math.pow(1 - k, 3)));
+      if (k < 1) raf = requestAnimationFrame(step);
+      else end();
+    };
+    raf = requestAnimationFrame(step);
+  };
+  const offs = [
+    on(document, "click", onClick, { capture: true }),
+    on(window, "wheel", end, { passive: true }),
+    on(window, "touchstart", end, { passive: true }),
+    on(window, "keydown", end),
+  ];
+  return () => {
+    offs.forEach((f) => f());
+    cancelAnimationFrame(raf);
+    jump.on = false;
+    delete document.documentElement.dataset.jump;
+  };
 }
 
 export function PageEffects() {
@@ -614,7 +747,7 @@ export function PageEffects() {
     const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
     splitLetters();
     // El orden importa: el header se clona (setupHero) antes de marcar el enlace activo (setupNav).
-    const cleanups = [setupPin(still), setupTilt(still), setupHero(still), setupFounders(still), setupFx(still), setupNav(), setupReveal(still)];
+    const cleanups = [setupPin(still), setupTilt(still), setupHero(still), setupFounders(still), setupFx(still), setupNav(), setupReveal(still), setupJump(still)];
     return () => cleanups.forEach((f) => f());
   }, []);
 

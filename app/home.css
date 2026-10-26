@@ -107,6 +107,8 @@ html.is-loading{overflow:hidden}
 @media (max-width:420px){[data-hcta-l]{display:none}[data-hcta-s]{display:inline}[data-hcta]{height:38px!important;padding:0 14px!important;font-size:13px!important}[data-hfill]{padding:0 14px!important}}
 [data-hdr] img,[data-hdr] nav a{transition:filter .35s,color .35s,background-color .2s}
 [data-hdr][data-dark="1"]{background:#0B0B0C!important}
+/* Durante un salto desde un enlace interno (PageEffects), el header cambia de color sin transición. */
+html[data-jump] [data-hdr],html[data-jump] [data-hdr] *{transition:none!important}
 [data-hdr][data-dark="1"] img{filter:none!important}
 [data-hdr][data-dark="1"] nav a{color:#B8B9BE!important}
 [data-hdr][data-dark="1"] nav a:hover{color:#FFFFFF!important}
