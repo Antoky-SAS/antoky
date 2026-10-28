@@ -203,7 +203,7 @@ function setupPin(still: boolean): Cleanup {
     pin.style.height = "auto";
     Object.assign(inner.style, { position: "static", height: "auto" });
     Object.assign(stage.style, { height: "auto", display: "grid", gap: "12px" });
-    cards.forEach((c) => Object.assign(c.style, { position: "relative", transform: "none", opacity: "1", minHeight: "280px" }));
+    cards.forEach((c) => Object.assign(c.style, { position: "relative", gridArea: "auto", transform: "none", opacity: "1", minHeight: "280px" }));
     segs.forEach((s) => (s.style.transform = "none"));
     if (count) count.style.display = "none";
     return () => {};

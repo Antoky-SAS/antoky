@@ -77,8 +77,8 @@ h1,h2,h3,p{margin:0}
 @keyframes akWord{0%{clip-path:inset(0 100% 0 0)}100%{clip-path:inset(0 0 0 0)}}
 @keyframes akBar{0%{transform:scaleX(0)}100%{transform:scaleX(.85)}}
 html.is-loading{overflow:hidden}
-.loader{position:fixed;inset:0;z-index:100;background:#0B0B0C;display:flex;align-items:center;justify-content:center;clip-path:inset(0 0 0 0);transition:clip-path .9s cubic-bezier(.7,0,.2,1)}
-.loader.out{clip-path:inset(0 0 100% 0)}
+.loader{position:fixed;inset:0;z-index:100;background:#0B0B0C;display:flex;align-items:center;justify-content:center;transform:translate3d(0,0,0);will-change:transform;backface-visibility:hidden;transition:transform .9s cubic-bezier(.7,0,.2,1)}
+.loader.out{transform:translate3d(0,-100%,0);pointer-events:none}
 .loader-inner{display:flex;flex-direction:column;align-items:center;gap:28px;transition:opacity .5s ease,transform .6s ease}
 .loader.out .loader-inner{opacity:0;transform:translateY(-30px)}
 .loader-iso{position:relative;width:min(34vw,150px);aspect-ratio:837/526}
@@ -89,6 +89,17 @@ html.is-loading{overflow:hidden}
 .loader-track{width:min(62vw,280px);height:2px;background:#1C1F23;overflow:hidden}
 .loader-bar{height:100%;background:#FFD600;transform-origin:left;animation:akBar 2.4s cubic-bezier(.6,0,.3,1) both}
 .loader.out .loader-bar{transform:scaleX(1);animation:none;transition:transform .3s ease}
+
+/* ---------- Cursor de punto (components/CursorDot.tsx) ---------- */
+html.has-dot,html.has-dot *{cursor:none!important}
+html.has-dot input,html.has-dot textarea,html.has-dot [contenteditable=true]{cursor:text!important}
+.cdot{position:fixed;left:0;top:0;z-index:200;pointer-events:none;mix-blend-mode:difference;opacity:0;transition:opacity .2s ease;will-change:transform}
+.cdot.on{opacity:1}
+.cdot.hide{opacity:0}
+.cdot span{position:absolute;left:-5px;top:-5px;width:10px;height:10px;border-radius:50%;background:#FFFFFF;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.cdot.big span{transform:scale(3.2)}
+.cdot.press span{transform:scale(.7)}
+.cdot.big.press span{transform:scale(2.6)}
 
 /* ---------- Header ---------- */
 .header{position:sticky;top:0;z-index:50;transition:background-color .35s ease;background:rgba(243,243,240,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
@@ -152,8 +163,9 @@ html[data-jump] [data-hdr],html[data-jump] [data-hdr] *{transition:none!importan
 .problemas{position:relative;scroll-margin-top:68px;padding:clamp(40px,5vw,72px) 0 clamp(56px,6vw,88px);display:flex;flex-direction:column;gap:44px}
 .pin{position:relative;height:520vh}
 .pin-inner{position:sticky;top:68px;height:calc(100vh - 68px);display:flex;flex-direction:column;justify-content:center;gap:clamp(28px,4vw,48px)}
-.stage{position:relative;height:clamp(300px,44vh,420px)}
-.pcard{position:absolute;inset:0;color:#FFFFFF;border-radius:32px;padding:clamp(28px,4vw,56px);display:flex;flex-direction:column;gap:16px;background:#080808;overflow:hidden;transform-origin:0 50%;will-change:transform,opacity;transform:translateX(110%);opacity:0}
+/* Las tarjetas comparten la misma celda: el escenario mide lo que la más alta, así el texto nunca se corta. */
+.stage{position:relative;display:grid;min-height:clamp(300px,44vh,420px)}
+.pcard{grid-area:1/1;position:relative;color:#FFFFFF;border-radius:32px;padding:clamp(28px,4vw,56px);display:flex;flex-direction:column;gap:16px;background:#080808;overflow:hidden;transform-origin:0 50%;will-change:transform,opacity;transform:translateX(110%);opacity:0}
 .pcard-n{font-size:clamp(56px,7vw,96px);line-height:.9;font-weight:700;letter-spacing:-0.06em;color:#FFD600}
 .pcard h3{margin:auto 0 0;max-width:900px;font-size:clamp(28px,3.8vw,52px);line-height:1.05;font-weight:700;letter-spacing:-0.04em;text-wrap:balance}
 .pcard p{max-width:620px;font-size:clamp(16px,1.4vw,19px);line-height:1.55;color:#B8B9BE;text-wrap:pretty}
@@ -386,12 +398,19 @@ textarea.field{height:auto;min-height:160px;padding:14px 16px;line-height:1.55;r
   .hero-ctas{width:100%;flex-direction:column}
   .hero-ctas > a{width:100%;justify-content:center}
   .pin{height:400vh}
-  .stage{height:clamp(380px,54vh,470px)}
+  .stage{min-height:clamp(380px,54vh,470px)}
   .pcard{border-radius:24px}
   .contacto{border-radius:28px;padding:28px 20px}
   .contacto-r{flex-basis:100%;padding:20px}
   .fcard{padding:18px 6px 22px 20px}
   .footer a{padding:4px 0}
   .mcard{min-height:200px}
+}
+/* Pantallas bajas (laptops, ventanas pequeñas): tarjetas más compactas para que el bloque quepa en el pin. */
+@media (max-height:820px){
+  .stage{min-height:0}
+  .pcard{padding:clamp(24px,3vw,40px);gap:12px}
+  .pcard-n{font-size:clamp(44px,5vw,72px)}
+  .pcard h3{margin-top:clamp(24px,4vh,48px);font-size:clamp(24px,3vw,42px)}
 }
 @media (prefers-reduced-motion:reduce){*{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}}

@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { ContactForm } from "@/components/ContactForm";
 import { HeroOrb } from "@/components/HeroOrb";
 import { PageEffects } from "@/components/PageEffects";
+import { CursorDot } from "@/components/CursorDot";
 import { SiteLoader } from "@/components/SiteLoader";
 
 // Diseño: "Antoky Home v8.dc.html" (claude.ai/design).
@@ -95,6 +96,7 @@ export default function Home() {
         <style>{".loader{display:none}"}</style>
       </noscript>
       <SiteLoader />
+      <CursorDot />
       <PageEffects />
 
       <header data-hdr="" className="header">

@@ -52,8 +52,8 @@ button.btn{border:none;cursor:pointer}
 }
 
 /* ---------- Loader ---------- */
-.loader{position:fixed;inset:0;z-index:100;background:#0B0B0B;display:flex;align-items:center;justify-content:center;clip-path:inset(0 0 0 0);transition:clip-path .9s cubic-bezier(.7,0,.2,1)}
-.loader.out{clip-path:inset(0 0 100% 0)}
+.loader{position:fixed;inset:0;z-index:100;background:#0B0B0B;display:flex;align-items:center;justify-content:center;transform:translate3d(0,0,0);will-change:transform;backface-visibility:hidden;transition:transform .9s cubic-bezier(.7,0,.2,1)}
+.loader.out{transform:translate3d(0,-100%,0);pointer-events:none}
 .loader-inner{display:flex;flex-direction:column;align-items:center;gap:28px;opacity:1;transform:none;transition:opacity .5s ease,transform .6s ease}
 .loader.out .loader-inner{opacity:0;transform:translateY(-30px)}
 .loader-iso{position:relative;width:min(34vw,150px);aspect-ratio:837/526}

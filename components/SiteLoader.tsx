@@ -39,8 +39,8 @@ export function SiteLoader() {
   }, []);
 
   useEffect(() => {
-    // Sin scroll mientras carga, para no avanzar el hero a ciegas.
-    document.documentElement.classList.toggle("is-loading", phase === "in");
+    // Sin scroll mientras carga (y durante la salida: soltar el overflow a mitad de la cortina provoca reflow y tirones).
+    document.documentElement.classList.toggle("is-loading", phase !== "gone");
   }, [phase]);
 
   if (phase === "gone") return null;
